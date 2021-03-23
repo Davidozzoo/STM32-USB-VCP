@@ -17,16 +17,17 @@ I designed the library to be light, independet and easy to use as much as possib
 
 ## COMPILATION
 
-I compiled the library with STM32CubeIde 1.3.0, but it could be compiled with Arduino or gcc-arm-none-eabi stand alone because it doesn't have any
+I compiled the library with STM32CubeIde 1.3.0 on Windows 10, but it could be compiled with Arduino or gcc-arm-none-eabi stand alone because it doesn't have any
 particular dependence.
 
-The library was compiled an tested for STM32F103RB and STM32F103C8 (Blue Pill).
+The library was compiled and tested for STM32F103RB and STM32F103C8 (Blue Pill).
 
 
 
 
 
 ## HOW TO USE THE LIBRARY WITH STM32CubeIde
+
 1. Create a new projet for your STM32 MCU (you don't need to enable anything about the USB peripheral, my library will do everything).
 
 2. Set SYSTEM CLOCK = 72Mhz. AHB CLOCK = 72Mhz. APB1 CLOCK = 36Mhz. APB2 CLOCK = 72Mhz. USB CLOCK = 48Mhz. (Alternatively use my function "ClockInit()" in the example code, you will find it's definition in "RCC_CLOCK.h", in folder Core/Inc).  
@@ -138,25 +139,27 @@ https://www.st.com/en/development-tools/stsw-stm32102.html
 
 ## HOW TO USE THE SERIAL PORT WITH YAT
 
-1.Once compiled and uploaded you firmware to your STM32, connect it to the PC and check in "device manager" which COM port has been assigned to the device.
+1.Download YAT https://sourceforge.net/projects/y-a-terminal/
 
-2.Open YAT.
+2.Once compiled and uploaded you firmware to your STM32, connect it to the PC and check in "device manager" which COM port has been assigned to the device.
 
-3.Click Terminal -> Settings
+3.Open YAT.
 
-4.Serial Port: insert the correct COM port.
+4.Click Terminal -> Settings
 
-5.Leave "Bits per second", "Data bits", "Parity" and "Stop Bits" as they are, because they are useless since this is a virtual serial port.
+5.Serial Port: insert the correct COM port.
 
-6.Flow Control: None.
+6.Leave "Bits per second", "Data bits", "Parity" and "Stop Bits" as they are, because they are useless since this is a virtual serial port.
 
-7.Click Ok.
+7.Flow Control: None.
 
-8.Click Terminal -> Open/Start.
+8.Click Ok.
 
-9.Now you can send and receive your data.
+9.Click Terminal -> Open/Start.
 
-10. If you have uploaded the example code you will receive the same data that you have sent.
+10.Now you can send and receive your data.
+
+11. If you have uploaded the example code you will receive the same data that you have sent.
 
 
 
