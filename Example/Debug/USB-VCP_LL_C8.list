@@ -1,0 +1,2046 @@
+
+USB-VCP_LL_C8.elf:     file format elf32-littlearm
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .isr_vector   0000010c  08000000  08000000  00010000  2**0
+                  CONTENTS, ALLOC, LOAD, READONLY, DATA
+  1 .text         00000d40  0800010c  0800010c  0001010c  2**2
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .rodata       000000d8  08000e4c  08000e4c  00010e4c  2**2
+                  CONTENTS, ALLOC, LOAD, READONLY, DATA
+  3 .ARM.extab    00000000  08000f24  08000f24  00020004  2**0
+                  CONTENTS
+  4 .ARM          00000000  08000f24  08000f24  00020004  2**0
+                  CONTENTS
+  5 .preinit_array 00000000  08000f24  08000f24  00020004  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  6 .init_array   00000004  08000f24  08000f24  00010f24  2**2
+                  CONTENTS, ALLOC, LOAD, DATA
+  7 .fini_array   00000004  08000f28  08000f28  00010f28  2**2
+                  CONTENTS, ALLOC, LOAD, DATA
+  8 .data         00000004  20000000  08000f2c  00020000  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  9 .bss          00000044  20000004  08000f30  00020004  2**2
+                  ALLOC
+ 10 ._user_heap_stack 00000600  20000048  08000f30  00020048  2**0
+                  ALLOC
+ 11 .ARM.attributes 00000029  00000000  00000000  00020004  2**0
+                  CONTENTS, READONLY
+ 12 .debug_info   000015c6  00000000  00000000  0002002d  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 13 .debug_abbrev 000006c2  00000000  00000000  000215f3  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 14 .debug_aranges 00000298  00000000  00000000  00021cb8  2**3
+                  CONTENTS, READONLY, DEBUGGING
+ 15 .debug_ranges 00000240  00000000  00000000  00021f50  2**3
+                  CONTENTS, READONLY, DEBUGGING
+ 16 .debug_macro  00015470  00000000  00000000  00022190  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 17 .debug_line   000022fc  00000000  00000000  00037600  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 18 .debug_str    0007c34a  00000000  00000000  000398fc  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 19 .comment      0000007b  00000000  00000000  000b5c46  2**0
+                  CONTENTS, READONLY
+ 20 .debug_frame  00000878  00000000  00000000  000b5cc4  2**2
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+0800010c <__do_global_dtors_aux>:
+ 800010c:	b510      	push	{r4, lr}
+ 800010e:	4c05      	ldr	r4, [pc, #20]	; (8000124 <__do_global_dtors_aux+0x18>)
+ 8000110:	7823      	ldrb	r3, [r4, #0]
+ 8000112:	b933      	cbnz	r3, 8000122 <__do_global_dtors_aux+0x16>
+ 8000114:	4b04      	ldr	r3, [pc, #16]	; (8000128 <__do_global_dtors_aux+0x1c>)
+ 8000116:	b113      	cbz	r3, 800011e <__do_global_dtors_aux+0x12>
+ 8000118:	4804      	ldr	r0, [pc, #16]	; (800012c <__do_global_dtors_aux+0x20>)
+ 800011a:	f3af 8000 	nop.w
+ 800011e:	2301      	movs	r3, #1
+ 8000120:	7023      	strb	r3, [r4, #0]
+ 8000122:	bd10      	pop	{r4, pc}
+ 8000124:	20000004 	.word	0x20000004
+ 8000128:	00000000 	.word	0x00000000
+ 800012c:	08000e34 	.word	0x08000e34
+
+08000130 <frame_dummy>:
+ 8000130:	b508      	push	{r3, lr}
+ 8000132:	4b03      	ldr	r3, [pc, #12]	; (8000140 <frame_dummy+0x10>)
+ 8000134:	b11b      	cbz	r3, 800013e <frame_dummy+0xe>
+ 8000136:	4903      	ldr	r1, [pc, #12]	; (8000144 <frame_dummy+0x14>)
+ 8000138:	4803      	ldr	r0, [pc, #12]	; (8000148 <frame_dummy+0x18>)
+ 800013a:	f3af 8000 	nop.w
+ 800013e:	bd08      	pop	{r3, pc}
+ 8000140:	00000000 	.word	0x00000000
+ 8000144:	20000008 	.word	0x20000008
+ 8000148:	08000e34 	.word	0x08000e34
+
+0800014c <EN_RX_EP0>:
+
+
+uint16_t 	Control_Line_State[2] = {0};
+
+
+void EN_RX_EP0()	{
+ 800014c:	b480      	push	{r7}
+ 800014e:	af00      	add	r7, sp, #0
+	USB_ENP0R = ((~USB_ENP0R) & 0x3000) | 0x8280;	}
+ 8000150:	4b07      	ldr	r3, [pc, #28]	; (8000170 <EN_RX_EP0+0x24>)
+ 8000152:	681b      	ldr	r3, [r3, #0]
+ 8000154:	43db      	mvns	r3, r3
+ 8000156:	f403 5340 	and.w	r3, r3, #12288	; 0x3000
+ 800015a:	4a05      	ldr	r2, [pc, #20]	; (8000170 <EN_RX_EP0+0x24>)
+ 800015c:	f443 4302 	orr.w	r3, r3, #33280	; 0x8200
+ 8000160:	f043 0380 	orr.w	r3, r3, #128	; 0x80
+ 8000164:	6013      	str	r3, [r2, #0]
+ 8000166:	bf00      	nop
+ 8000168:	46bd      	mov	sp, r7
+ 800016a:	bc80      	pop	{r7}
+ 800016c:	4770      	bx	lr
+ 800016e:	bf00      	nop
+ 8000170:	40005c00 	.word	0x40005c00
+
+08000174 <DIS_RX_EP0>:
+
+void DIS_RX_EP0()	{
+ 8000174:	b480      	push	{r7}
+ 8000176:	af00      	add	r7, sp, #0
+	USB_ENP0R = ((~USB_ENP0R) & 0x2000) | ((USB_ENP0R) & 0x1000) | 0x8280;	}
+ 8000178:	4b09      	ldr	r3, [pc, #36]	; (80001a0 <DIS_RX_EP0+0x2c>)
+ 800017a:	681b      	ldr	r3, [r3, #0]
+ 800017c:	43db      	mvns	r3, r3
+ 800017e:	f403 5200 	and.w	r2, r3, #8192	; 0x2000
+ 8000182:	4b07      	ldr	r3, [pc, #28]	; (80001a0 <DIS_RX_EP0+0x2c>)
+ 8000184:	681b      	ldr	r3, [r3, #0]
+ 8000186:	f403 5380 	and.w	r3, r3, #4096	; 0x1000
+ 800018a:	4313      	orrs	r3, r2
+ 800018c:	4a04      	ldr	r2, [pc, #16]	; (80001a0 <DIS_RX_EP0+0x2c>)
+ 800018e:	f443 4302 	orr.w	r3, r3, #33280	; 0x8200
+ 8000192:	f043 0380 	orr.w	r3, r3, #128	; 0x80
+ 8000196:	6013      	str	r3, [r2, #0]
+ 8000198:	bf00      	nop
+ 800019a:	46bd      	mov	sp, r7
+ 800019c:	bc80      	pop	{r7}
+ 800019e:	4770      	bx	lr
+ 80001a0:	40005c00 	.word	0x40005c00
+
+080001a4 <EN_TX_EP0>:
+
+void STALL_RX_EP0()	{
+	USB_ENP0R = ((USB_ENP0R) & 0x2000) | ((~USB_ENP0R) & 0x1000) | 0x8280;	}
+	
+void EN_TX_EP0()	{
+ 80001a4:	b480      	push	{r7}
+ 80001a6:	af00      	add	r7, sp, #0
+	USB_ENP0R = ((~USB_ENP0R) & 0x0030) | 0x8280;	}
+ 80001a8:	4b07      	ldr	r3, [pc, #28]	; (80001c8 <EN_TX_EP0+0x24>)
+ 80001aa:	681b      	ldr	r3, [r3, #0]
+ 80001ac:	43db      	mvns	r3, r3
+ 80001ae:	f003 0330 	and.w	r3, r3, #48	; 0x30
+ 80001b2:	4a05      	ldr	r2, [pc, #20]	; (80001c8 <EN_TX_EP0+0x24>)
+ 80001b4:	f443 4302 	orr.w	r3, r3, #33280	; 0x8200
+ 80001b8:	f043 0380 	orr.w	r3, r3, #128	; 0x80
+ 80001bc:	6013      	str	r3, [r2, #0]
+ 80001be:	bf00      	nop
+ 80001c0:	46bd      	mov	sp, r7
+ 80001c2:	bc80      	pop	{r7}
+ 80001c4:	4770      	bx	lr
+ 80001c6:	bf00      	nop
+ 80001c8:	40005c00 	.word	0x40005c00
+
+080001cc <DIS_TX_EP0>:
+	
+void DIS_TX_EP0()	{
+ 80001cc:	b480      	push	{r7}
+ 80001ce:	af00      	add	r7, sp, #0
+	USB_ENP0R = ((~USB_ENP0R) & 0x0020) | ((USB_ENP0R) & 0x0010) | 0x8280;	}
+ 80001d0:	4b09      	ldr	r3, [pc, #36]	; (80001f8 <DIS_TX_EP0+0x2c>)
+ 80001d2:	681b      	ldr	r3, [r3, #0]
+ 80001d4:	43db      	mvns	r3, r3
+ 80001d6:	f003 0220 	and.w	r2, r3, #32
+ 80001da:	4b07      	ldr	r3, [pc, #28]	; (80001f8 <DIS_TX_EP0+0x2c>)
+ 80001dc:	681b      	ldr	r3, [r3, #0]
+ 80001de:	f003 0310 	and.w	r3, r3, #16
+ 80001e2:	4313      	orrs	r3, r2
+ 80001e4:	4a04      	ldr	r2, [pc, #16]	; (80001f8 <DIS_TX_EP0+0x2c>)
+ 80001e6:	f443 4302 	orr.w	r3, r3, #33280	; 0x8200
+ 80001ea:	f043 0380 	orr.w	r3, r3, #128	; 0x80
+ 80001ee:	6013      	str	r3, [r2, #0]
+ 80001f0:	bf00      	nop
+ 80001f2:	46bd      	mov	sp, r7
+ 80001f4:	bc80      	pop	{r7}
+ 80001f6:	4770      	bx	lr
+ 80001f8:	40005c00 	.word	0x40005c00
+
+080001fc <STALL_TX_EP0>:
+	
+void STALL_TX_EP0()	{
+ 80001fc:	b480      	push	{r7}
+ 80001fe:	af00      	add	r7, sp, #0
+	USB_ENP0R = ((USB_ENP0R) & 0x0020) | ((~USB_ENP0R) & 0x0010) | 0x8280;	}
+ 8000200:	4b09      	ldr	r3, [pc, #36]	; (8000228 <STALL_TX_EP0+0x2c>)
+ 8000202:	681b      	ldr	r3, [r3, #0]
+ 8000204:	f003 0220 	and.w	r2, r3, #32
+ 8000208:	4b07      	ldr	r3, [pc, #28]	; (8000228 <STALL_TX_EP0+0x2c>)
+ 800020a:	681b      	ldr	r3, [r3, #0]
+ 800020c:	43db      	mvns	r3, r3
+ 800020e:	f003 0310 	and.w	r3, r3, #16
+ 8000212:	4313      	orrs	r3, r2
+ 8000214:	4a04      	ldr	r2, [pc, #16]	; (8000228 <STALL_TX_EP0+0x2c>)
+ 8000216:	f443 4302 	orr.w	r3, r3, #33280	; 0x8200
+ 800021a:	f043 0380 	orr.w	r3, r3, #128	; 0x80
+ 800021e:	6013      	str	r3, [r2, #0]
+ 8000220:	bf00      	nop
+ 8000222:	46bd      	mov	sp, r7
+ 8000224:	bc80      	pop	{r7}
+ 8000226:	4770      	bx	lr
+ 8000228:	40005c00 	.word	0x40005c00
+
+0800022c <SET_DATA0_EP0>:
+	USB_ENP0R = ((USB_ENP0R) & 0x0030) | 0x8280;	}
+
+void OFF_RX_EP0()	{
+	USB_ENP0R = ((USB_ENP0R) & 0x3000) | 0x8280;	}
+
+void SET_DATA0_EP0()	{
+ 800022c:	b480      	push	{r7}
+ 800022e:	af00      	add	r7, sp, #0
+	USB_ENP0R = ((USB_ENP0R) & 0x0040) | 0x8280;	}
+ 8000230:	4b06      	ldr	r3, [pc, #24]	; (800024c <SET_DATA0_EP0+0x20>)
+ 8000232:	681b      	ldr	r3, [r3, #0]
+ 8000234:	f003 0340 	and.w	r3, r3, #64	; 0x40
+ 8000238:	4a04      	ldr	r2, [pc, #16]	; (800024c <SET_DATA0_EP0+0x20>)
+ 800023a:	f443 4302 	orr.w	r3, r3, #33280	; 0x8200
+ 800023e:	f043 0380 	orr.w	r3, r3, #128	; 0x80
+ 8000242:	6013      	str	r3, [r2, #0]
+ 8000244:	bf00      	nop
+ 8000246:	46bd      	mov	sp, r7
+ 8000248:	bc80      	pop	{r7}
+ 800024a:	4770      	bx	lr
+ 800024c:	40005c00 	.word	0x40005c00
+
+08000250 <SET_DATA1_EP0>:
+
+void SET_DATA1_EP0()	{
+ 8000250:	b480      	push	{r7}
+ 8000252:	af00      	add	r7, sp, #0
+	USB_ENP0R = ((~USB_ENP0R) & 0x0040) | 0x8280;	}
+ 8000254:	4b07      	ldr	r3, [pc, #28]	; (8000274 <SET_DATA1_EP0+0x24>)
+ 8000256:	681b      	ldr	r3, [r3, #0]
+ 8000258:	43db      	mvns	r3, r3
+ 800025a:	f003 0340 	and.w	r3, r3, #64	; 0x40
+ 800025e:	4a05      	ldr	r2, [pc, #20]	; (8000274 <SET_DATA1_EP0+0x24>)
+ 8000260:	f443 4302 	orr.w	r3, r3, #33280	; 0x8200
+ 8000264:	f043 0380 	orr.w	r3, r3, #128	; 0x80
+ 8000268:	6013      	str	r3, [r2, #0]
+ 800026a:	bf00      	nop
+ 800026c:	46bd      	mov	sp, r7
+ 800026e:	bc80      	pop	{r7}
+ 8000270:	4770      	bx	lr
+ 8000272:	bf00      	nop
+ 8000274:	40005c00 	.word	0x40005c00
+
+08000278 <Send_EP0>:
+
+void Send_EP0(const uint8_t* data, uint32_t len)		{
+ 8000278:	b580      	push	{r7, lr}
+ 800027a:	b086      	sub	sp, #24
+ 800027c:	af00      	add	r7, sp, #0
+ 800027e:	6078      	str	r0, [r7, #4]
+ 8000280:	6039      	str	r1, [r7, #0]
+	uint16_t* p_mem_16 = (uint16_t*) USB_TX0_BASE_32;	//Punto ad area di memoria trasmissione EP0.
+ 8000282:	4b13      	ldr	r3, [pc, #76]	; (80002d0 <Send_EP0+0x58>)
+ 8000284:	617b      	str	r3, [r7, #20]
+	uint16_t* data_16 = (uint16_t*) data;				//Punto ad area di dati da trasmettere.
+ 8000286:	687b      	ldr	r3, [r7, #4]
+ 8000288:	613b      	str	r3, [r7, #16]
+	uint32_t  ii=0;	
+ 800028a:	2300      	movs	r3, #0
+ 800028c:	60fb      	str	r3, [r7, #12]
+	for(ii=0;ii<len;)	{								//Per tutti i dati da trasmettere..
+ 800028e:	2300      	movs	r3, #0
+ 8000290:	60fb      	str	r3, [r7, #12]
+ 8000292:	e00c      	b.n	80002ae <Send_EP0+0x36>
+		*p_mem_16 = *data_16;
+ 8000294:	693b      	ldr	r3, [r7, #16]
+ 8000296:	881a      	ldrh	r2, [r3, #0]
+ 8000298:	697b      	ldr	r3, [r7, #20]
+ 800029a:	801a      	strh	r2, [r3, #0]
+		p_mem_16 += 2;
+ 800029c:	697b      	ldr	r3, [r7, #20]
+ 800029e:	3304      	adds	r3, #4
+ 80002a0:	617b      	str	r3, [r7, #20]
+		data_16 += 1;
+ 80002a2:	693b      	ldr	r3, [r7, #16]
+ 80002a4:	3302      	adds	r3, #2
+ 80002a6:	613b      	str	r3, [r7, #16]
+		ii+=2;			}
+ 80002a8:	68fb      	ldr	r3, [r7, #12]
+ 80002aa:	3302      	adds	r3, #2
+ 80002ac:	60fb      	str	r3, [r7, #12]
+	for(ii=0;ii<len;)	{								//Per tutti i dati da trasmettere..
+ 80002ae:	68fa      	ldr	r2, [r7, #12]
+ 80002b0:	683b      	ldr	r3, [r7, #0]
+ 80002b2:	429a      	cmp	r2, r3
+ 80002b4:	d3ee      	bcc.n	8000294 <Send_EP0+0x1c>
+	USB_COUNT0_TX = len;								//Numero di byte da trasmettere.
+ 80002b6:	4a07      	ldr	r2, [pc, #28]	; (80002d4 <Send_EP0+0x5c>)
+ 80002b8:	683b      	ldr	r3, [r7, #0]
+ 80002ba:	6013      	str	r3, [r2, #0]
+	USB_TRANSMITTED_EP0=0;
+ 80002bc:	4b06      	ldr	r3, [pc, #24]	; (80002d8 <Send_EP0+0x60>)
+ 80002be:	2200      	movs	r2, #0
+ 80002c0:	701a      	strb	r2, [r3, #0]
+	EN_TX_EP0();		}
+ 80002c2:	f7ff ff6f 	bl	80001a4 <EN_TX_EP0>
+ 80002c6:	bf00      	nop
+ 80002c8:	3718      	adds	r7, #24
+ 80002ca:	46bd      	mov	sp, r7
+ 80002cc:	bd80      	pop	{r7, pc}
+ 80002ce:	bf00      	nop
+ 80002d0:	40006100 	.word	0x40006100
+ 80002d4:	40006004 	.word	0x40006004
+ 80002d8:	20000021 	.word	0x20000021
+
+080002dc <Send_EP1>:
+
+void Send_EP1(uint8_t* data, uint32_t len)		{
+ 80002dc:	b580      	push	{r7, lr}
+ 80002de:	b086      	sub	sp, #24
+ 80002e0:	af00      	add	r7, sp, #0
+ 80002e2:	6078      	str	r0, [r7, #4]
+ 80002e4:	6039      	str	r1, [r7, #0]
+	uint16_t* p_mem_16 = (uint16_t*) USB_TX1_BASE_32;	//Punto ad area di memoria trasmissione EP1.
+ 80002e6:	4b13      	ldr	r3, [pc, #76]	; (8000334 <Send_EP1+0x58>)
+ 80002e8:	617b      	str	r3, [r7, #20]
+	uint16_t* data_16 = (uint16_t*) data;				//Punto ad area di dati da trasmettere.
+ 80002ea:	687b      	ldr	r3, [r7, #4]
+ 80002ec:	613b      	str	r3, [r7, #16]
+	uint32_t  ii=0;	
+ 80002ee:	2300      	movs	r3, #0
+ 80002f0:	60fb      	str	r3, [r7, #12]
+	for(ii=0;ii<len;)	{								//Per tutti i dati da trasmettere..
+ 80002f2:	2300      	movs	r3, #0
+ 80002f4:	60fb      	str	r3, [r7, #12]
+ 80002f6:	e00c      	b.n	8000312 <Send_EP1+0x36>
+		*p_mem_16 = *data_16;
+ 80002f8:	693b      	ldr	r3, [r7, #16]
+ 80002fa:	881a      	ldrh	r2, [r3, #0]
+ 80002fc:	697b      	ldr	r3, [r7, #20]
+ 80002fe:	801a      	strh	r2, [r3, #0]
+		p_mem_16 += 2;
+ 8000300:	697b      	ldr	r3, [r7, #20]
+ 8000302:	3304      	adds	r3, #4
+ 8000304:	617b      	str	r3, [r7, #20]
+		data_16 += 1;
+ 8000306:	693b      	ldr	r3, [r7, #16]
+ 8000308:	3302      	adds	r3, #2
+ 800030a:	613b      	str	r3, [r7, #16]
+		ii+=2;			}
+ 800030c:	68fb      	ldr	r3, [r7, #12]
+ 800030e:	3302      	adds	r3, #2
+ 8000310:	60fb      	str	r3, [r7, #12]
+	for(ii=0;ii<len;)	{								//Per tutti i dati da trasmettere..
+ 8000312:	68fa      	ldr	r2, [r7, #12]
+ 8000314:	683b      	ldr	r3, [r7, #0]
+ 8000316:	429a      	cmp	r2, r3
+ 8000318:	d3ee      	bcc.n	80002f8 <Send_EP1+0x1c>
+	USB_COUNT1_TX = len;								//Numero di byte da trasmettere.
+ 800031a:	4a07      	ldr	r2, [pc, #28]	; (8000338 <Send_EP1+0x5c>)
+ 800031c:	683b      	ldr	r3, [r7, #0]
+ 800031e:	6013      	str	r3, [r2, #0]
+	USB_TRANSMITTED_EP1=0;
+ 8000320:	4b06      	ldr	r3, [pc, #24]	; (800033c <Send_EP1+0x60>)
+ 8000322:	2200      	movs	r2, #0
+ 8000324:	701a      	strb	r2, [r3, #0]
+	EN_TX_EP1();		}
+ 8000326:	f000 f837 	bl	8000398 <EN_TX_EP1>
+ 800032a:	bf00      	nop
+ 800032c:	3718      	adds	r7, #24
+ 800032e:	46bd      	mov	sp, r7
+ 8000330:	bd80      	pop	{r7, pc}
+ 8000332:	bf00      	nop
+ 8000334:	40006200 	.word	0x40006200
+ 8000338:	40006014 	.word	0x40006014
+ 800033c:	20000023 	.word	0x20000023
+
+08000340 <EN_RX_EP1>:
+
+void EN_RX_EP1()	{
+ 8000340:	b480      	push	{r7}
+ 8000342:	af00      	add	r7, sp, #0
+	USB_ENP1R = ((~USB_ENP1R) & 0x3000) | 0x8081;	}
+ 8000344:	4b07      	ldr	r3, [pc, #28]	; (8000364 <EN_RX_EP1+0x24>)
+ 8000346:	681b      	ldr	r3, [r3, #0]
+ 8000348:	43db      	mvns	r3, r3
+ 800034a:	f403 5340 	and.w	r3, r3, #12288	; 0x3000
+ 800034e:	4a05      	ldr	r2, [pc, #20]	; (8000364 <EN_RX_EP1+0x24>)
+ 8000350:	f443 4300 	orr.w	r3, r3, #32768	; 0x8000
+ 8000354:	f043 0381 	orr.w	r3, r3, #129	; 0x81
+ 8000358:	6013      	str	r3, [r2, #0]
+ 800035a:	bf00      	nop
+ 800035c:	46bd      	mov	sp, r7
+ 800035e:	bc80      	pop	{r7}
+ 8000360:	4770      	bx	lr
+ 8000362:	bf00      	nop
+ 8000364:	40005c04 	.word	0x40005c04
+
+08000368 <DIS_RX_EP1>:
+
+void DIS_RX_EP1()	{
+ 8000368:	b480      	push	{r7}
+ 800036a:	af00      	add	r7, sp, #0
+	USB_ENP1R = ((~USB_ENP1R) & 0x2000) | ((USB_ENP1R) & 0x1000) | 0x8081;	}
+ 800036c:	4b09      	ldr	r3, [pc, #36]	; (8000394 <DIS_RX_EP1+0x2c>)
+ 800036e:	681b      	ldr	r3, [r3, #0]
+ 8000370:	43db      	mvns	r3, r3
+ 8000372:	f403 5200 	and.w	r2, r3, #8192	; 0x2000
+ 8000376:	4b07      	ldr	r3, [pc, #28]	; (8000394 <DIS_RX_EP1+0x2c>)
+ 8000378:	681b      	ldr	r3, [r3, #0]
+ 800037a:	f403 5380 	and.w	r3, r3, #4096	; 0x1000
+ 800037e:	4313      	orrs	r3, r2
+ 8000380:	4a04      	ldr	r2, [pc, #16]	; (8000394 <DIS_RX_EP1+0x2c>)
+ 8000382:	f443 4300 	orr.w	r3, r3, #32768	; 0x8000
+ 8000386:	f043 0381 	orr.w	r3, r3, #129	; 0x81
+ 800038a:	6013      	str	r3, [r2, #0]
+ 800038c:	bf00      	nop
+ 800038e:	46bd      	mov	sp, r7
+ 8000390:	bc80      	pop	{r7}
+ 8000392:	4770      	bx	lr
+ 8000394:	40005c04 	.word	0x40005c04
+
+08000398 <EN_TX_EP1>:
+
+void EN_TX_EP1()	{
+ 8000398:	b480      	push	{r7}
+ 800039a:	af00      	add	r7, sp, #0
+	USB_ENP1R = ((~USB_ENP1R) & 0x0030) | 0x8081;	}
+ 800039c:	4b07      	ldr	r3, [pc, #28]	; (80003bc <EN_TX_EP1+0x24>)
+ 800039e:	681b      	ldr	r3, [r3, #0]
+ 80003a0:	43db      	mvns	r3, r3
+ 80003a2:	f003 0330 	and.w	r3, r3, #48	; 0x30
+ 80003a6:	4a05      	ldr	r2, [pc, #20]	; (80003bc <EN_TX_EP1+0x24>)
+ 80003a8:	f443 4300 	orr.w	r3, r3, #32768	; 0x8000
+ 80003ac:	f043 0381 	orr.w	r3, r3, #129	; 0x81
+ 80003b0:	6013      	str	r3, [r2, #0]
+ 80003b2:	bf00      	nop
+ 80003b4:	46bd      	mov	sp, r7
+ 80003b6:	bc80      	pop	{r7}
+ 80003b8:	4770      	bx	lr
+ 80003ba:	bf00      	nop
+ 80003bc:	40005c04 	.word	0x40005c04
+
+080003c0 <DIS_TX_EP1>:
+	
+void DIS_TX_EP1()	{
+ 80003c0:	b480      	push	{r7}
+ 80003c2:	af00      	add	r7, sp, #0
+	USB_ENP1R = ((~USB_ENP1R) & 0x0020) | ((USB_ENP1R) & 0x0010) | 0x8081;	}
+ 80003c4:	4b09      	ldr	r3, [pc, #36]	; (80003ec <DIS_TX_EP1+0x2c>)
+ 80003c6:	681b      	ldr	r3, [r3, #0]
+ 80003c8:	43db      	mvns	r3, r3
+ 80003ca:	f003 0220 	and.w	r2, r3, #32
+ 80003ce:	4b07      	ldr	r3, [pc, #28]	; (80003ec <DIS_TX_EP1+0x2c>)
+ 80003d0:	681b      	ldr	r3, [r3, #0]
+ 80003d2:	f003 0310 	and.w	r3, r3, #16
+ 80003d6:	4313      	orrs	r3, r2
+ 80003d8:	4a04      	ldr	r2, [pc, #16]	; (80003ec <DIS_TX_EP1+0x2c>)
+ 80003da:	f443 4300 	orr.w	r3, r3, #32768	; 0x8000
+ 80003de:	f043 0381 	orr.w	r3, r3, #129	; 0x81
+ 80003e2:	6013      	str	r3, [r2, #0]
+ 80003e4:	bf00      	nop
+ 80003e6:	46bd      	mov	sp, r7
+ 80003e8:	bc80      	pop	{r7}
+ 80003ea:	4770      	bx	lr
+ 80003ec:	40005c04 	.word	0x40005c04
+
+080003f0 <EN_RX_EP2>:
+
+void EN_RX_EP2()	{
+ 80003f0:	b480      	push	{r7}
+ 80003f2:	af00      	add	r7, sp, #0
+	USB_ENP2R = ((~USB_ENP2R) & 0x3000) | 0x8682;	}
+ 80003f4:	4b07      	ldr	r3, [pc, #28]	; (8000414 <EN_RX_EP2+0x24>)
+ 80003f6:	681b      	ldr	r3, [r3, #0]
+ 80003f8:	43db      	mvns	r3, r3
+ 80003fa:	f403 5340 	and.w	r3, r3, #12288	; 0x3000
+ 80003fe:	4a05      	ldr	r2, [pc, #20]	; (8000414 <EN_RX_EP2+0x24>)
+ 8000400:	f443 4306 	orr.w	r3, r3, #34304	; 0x8600
+ 8000404:	f043 0382 	orr.w	r3, r3, #130	; 0x82
+ 8000408:	6013      	str	r3, [r2, #0]
+ 800040a:	bf00      	nop
+ 800040c:	46bd      	mov	sp, r7
+ 800040e:	bc80      	pop	{r7}
+ 8000410:	4770      	bx	lr
+ 8000412:	bf00      	nop
+ 8000414:	40005c08 	.word	0x40005c08
+
+08000418 <DIS_RX_EP2>:
+
+void DIS_RX_EP2()	{
+ 8000418:	b480      	push	{r7}
+ 800041a:	af00      	add	r7, sp, #0
+	USB_ENP2R = ((~USB_ENP2R) & 0x2000) | ((USB_ENP2R) & 0x1000) | 0x8682;	}
+ 800041c:	4b09      	ldr	r3, [pc, #36]	; (8000444 <DIS_RX_EP2+0x2c>)
+ 800041e:	681b      	ldr	r3, [r3, #0]
+ 8000420:	43db      	mvns	r3, r3
+ 8000422:	f403 5200 	and.w	r2, r3, #8192	; 0x2000
+ 8000426:	4b07      	ldr	r3, [pc, #28]	; (8000444 <DIS_RX_EP2+0x2c>)
+ 8000428:	681b      	ldr	r3, [r3, #0]
+ 800042a:	f403 5380 	and.w	r3, r3, #4096	; 0x1000
+ 800042e:	4313      	orrs	r3, r2
+ 8000430:	4a04      	ldr	r2, [pc, #16]	; (8000444 <DIS_RX_EP2+0x2c>)
+ 8000432:	f443 4306 	orr.w	r3, r3, #34304	; 0x8600
+ 8000436:	f043 0382 	orr.w	r3, r3, #130	; 0x82
+ 800043a:	6013      	str	r3, [r2, #0]
+ 800043c:	bf00      	nop
+ 800043e:	46bd      	mov	sp, r7
+ 8000440:	bc80      	pop	{r7}
+ 8000442:	4770      	bx	lr
+ 8000444:	40005c08 	.word	0x40005c08
+
+08000448 <DIS_TX_EP2>:
+
+void EN_TX_EP2()	{
+	USB_ENP2R = ((~USB_ENP2R) & 0x0030) | 0x8682;	}
+	
+void DIS_TX_EP2()	{
+ 8000448:	b480      	push	{r7}
+ 800044a:	af00      	add	r7, sp, #0
+	USB_ENP2R = ((~USB_ENP2R) & 0x0020) | ((USB_ENP2R) & 0x0010) | 0x8682;	}
+ 800044c:	4b09      	ldr	r3, [pc, #36]	; (8000474 <DIS_TX_EP2+0x2c>)
+ 800044e:	681b      	ldr	r3, [r3, #0]
+ 8000450:	43db      	mvns	r3, r3
+ 8000452:	f003 0220 	and.w	r2, r3, #32
+ 8000456:	4b07      	ldr	r3, [pc, #28]	; (8000474 <DIS_TX_EP2+0x2c>)
+ 8000458:	681b      	ldr	r3, [r3, #0]
+ 800045a:	f003 0310 	and.w	r3, r3, #16
+ 800045e:	4313      	orrs	r3, r2
+ 8000460:	4a04      	ldr	r2, [pc, #16]	; (8000474 <DIS_TX_EP2+0x2c>)
+ 8000462:	f443 4306 	orr.w	r3, r3, #34304	; 0x8600
+ 8000466:	f043 0382 	orr.w	r3, r3, #130	; 0x82
+ 800046a:	6013      	str	r3, [r2, #0]
+ 800046c:	bf00      	nop
+ 800046e:	46bd      	mov	sp, r7
+ 8000470:	bc80      	pop	{r7}
+ 8000472:	4770      	bx	lr
+ 8000474:	40005c08 	.word	0x40005c08
+
+08000478 <USB_MANAGEMENT>:
+
+void USB_MANAGEMENT()	{
+ 8000478:	b580      	push	{r7, lr}
+ 800047a:	b082      	sub	sp, #8
+ 800047c:	af00      	add	r7, sp, #0
+		if(USB_RECEIVED_EP0)	{							//Se ricevo dati EP0.
+ 800047e:	4ba3      	ldr	r3, [pc, #652]	; (800070c <USB_MANAGEMENT+0x294>)
+ 8000480:	781b      	ldrb	r3, [r3, #0]
+ 8000482:	b2db      	uxtb	r3, r3
+ 8000484:	2b00      	cmp	r3, #0
+ 8000486:	f000 8132 	beq.w	80006ee <USB_MANAGEMENT+0x276>
+			USB_RECEIVED_EP0 = 0;							//Resetto flag ricezione EP0.
+ 800048a:	4ba0      	ldr	r3, [pc, #640]	; (800070c <USB_MANAGEMENT+0x294>)
+ 800048c:	2200      	movs	r2, #0
+ 800048e:	701a      	strb	r2, [r3, #0]
+			
+			uint8_t* p_mem_8 = (uint8_t*) USB_RX0_BASE_32;			//Punto ad area di memoria ricezione EP0.
+ 8000490:	4b9f      	ldr	r3, [pc, #636]	; (8000710 <USB_MANAGEMENT+0x298>)
+ 8000492:	607b      	str	r3, [r7, #4]
+			
+			if( p_mem_8[0]==0x80 && p_mem_8[1]==0x06 ) 	{						//Se viene richiesto un descriptor..
+ 8000494:	687b      	ldr	r3, [r7, #4]
+ 8000496:	781b      	ldrb	r3, [r3, #0]
+ 8000498:	2b80      	cmp	r3, #128	; 0x80
+ 800049a:	d15c      	bne.n	8000556 <USB_MANAGEMENT+0xde>
+ 800049c:	687b      	ldr	r3, [r7, #4]
+ 800049e:	3301      	adds	r3, #1
+ 80004a0:	781b      	ldrb	r3, [r3, #0]
+ 80004a2:	2b06      	cmp	r3, #6
+ 80004a4:	d157      	bne.n	8000556 <USB_MANAGEMENT+0xde>
+				
+				if(p_mem_8[5]==0x01)			{								//Se REQUEST Device_Descriptor..
+ 80004a6:	687b      	ldr	r3, [r7, #4]
+ 80004a8:	3305      	adds	r3, #5
+ 80004aa:	781b      	ldrb	r3, [r3, #0]
+ 80004ac:	2b01      	cmp	r3, #1
+ 80004ae:	d10d      	bne.n	80004cc <USB_MANAGEMENT+0x54>
+					Send_EP0(Device_Descriptor,18);								//Invio il Device_Descriptor.
+ 80004b0:	2112      	movs	r1, #18
+ 80004b2:	4898      	ldr	r0, [pc, #608]	; (8000714 <USB_MANAGEMENT+0x29c>)
+ 80004b4:	f7ff fee0 	bl	8000278 <Send_EP0>
+					while(USB_TRANSMITTED_EP0==0)	{}							//Aspetto che venga inviato.
+ 80004b8:	bf00      	nop
+ 80004ba:	4b97      	ldr	r3, [pc, #604]	; (8000718 <USB_MANAGEMENT+0x2a0>)
+ 80004bc:	781b      	ldrb	r3, [r3, #0]
+ 80004be:	b2db      	uxtb	r3, r3
+ 80004c0:	2b00      	cmp	r3, #0
+ 80004c2:	d0fa      	beq.n	80004ba <USB_MANAGEMENT+0x42>
+					USB_TRANSMITTED_EP0=0;		}								//Resetto flag trasmissione completata. 
+ 80004c4:	4b94      	ldr	r3, [pc, #592]	; (8000718 <USB_MANAGEMENT+0x2a0>)
+ 80004c6:	2200      	movs	r2, #0
+ 80004c8:	701a      	strb	r2, [r3, #0]
+				if(p_mem_8[5]==0x01)			{								//Se REQUEST Device_Descriptor..
+ 80004ca:	e10d      	b.n	80006e8 <USB_MANAGEMENT+0x270>
+				
+				else if(p_mem_8[5]==0x02)		{								//Se REQUEST Configuration_Descriptor..
+ 80004cc:	687b      	ldr	r3, [r7, #4]
+ 80004ce:	3305      	adds	r3, #5
+ 80004d0:	781b      	ldrb	r3, [r3, #0]
+ 80004d2:	2b02      	cmp	r3, #2
+ 80004d4:	d136      	bne.n	8000544 <USB_MANAGEMENT+0xcc>
+					if(p_mem_8[12]==0x09 && p_mem_8[13]==0x00)	{				//Se richiesta configurazione parziale..
+ 80004d6:	687b      	ldr	r3, [r7, #4]
+ 80004d8:	330c      	adds	r3, #12
+ 80004da:	781b      	ldrb	r3, [r3, #0]
+ 80004dc:	2b09      	cmp	r3, #9
+ 80004de:	d112      	bne.n	8000506 <USB_MANAGEMENT+0x8e>
+ 80004e0:	687b      	ldr	r3, [r7, #4]
+ 80004e2:	330d      	adds	r3, #13
+ 80004e4:	781b      	ldrb	r3, [r3, #0]
+ 80004e6:	2b00      	cmp	r3, #0
+ 80004e8:	d10d      	bne.n	8000506 <USB_MANAGEMENT+0x8e>
+						Send_EP0(Configuration_Descriptor,9);					//Invio il Configuration_Descriptor.
+ 80004ea:	2109      	movs	r1, #9
+ 80004ec:	488b      	ldr	r0, [pc, #556]	; (800071c <USB_MANAGEMENT+0x2a4>)
+ 80004ee:	f7ff fec3 	bl	8000278 <Send_EP0>
+						while(USB_TRANSMITTED_EP0==0)	{}						//Aspetto che venga inviato.
+ 80004f2:	bf00      	nop
+ 80004f4:	4b88      	ldr	r3, [pc, #544]	; (8000718 <USB_MANAGEMENT+0x2a0>)
+ 80004f6:	781b      	ldrb	r3, [r3, #0]
+ 80004f8:	b2db      	uxtb	r3, r3
+ 80004fa:	2b00      	cmp	r3, #0
+ 80004fc:	d0fa      	beq.n	80004f4 <USB_MANAGEMENT+0x7c>
+						USB_TRANSMITTED_EP0=0;	}			
+ 80004fe:	4b86      	ldr	r3, [pc, #536]	; (8000718 <USB_MANAGEMENT+0x2a0>)
+ 8000500:	2200      	movs	r2, #0
+ 8000502:	701a      	strb	r2, [r3, #0]
+				if(p_mem_8[5]==0x01)			{								//Se REQUEST Device_Descriptor..
+ 8000504:	e0f0      	b.n	80006e8 <USB_MANAGEMENT+0x270>
+					else					{									//Se richiesta configurazione completa..
+						SET_DATA1_EP0();
+ 8000506:	f7ff fea3 	bl	8000250 <SET_DATA1_EP0>
+						Send_EP0(Configuration_Descriptor_0,64);				//Invio la prima parte del Configuration_Descriptor.
+ 800050a:	2140      	movs	r1, #64	; 0x40
+ 800050c:	4883      	ldr	r0, [pc, #524]	; (800071c <USB_MANAGEMENT+0x2a4>)
+ 800050e:	f7ff feb3 	bl	8000278 <Send_EP0>
+						while(USB_TRANSMITTED_EP0==0)	{}						//Aspetto che venga inviato.
+ 8000512:	bf00      	nop
+ 8000514:	4b80      	ldr	r3, [pc, #512]	; (8000718 <USB_MANAGEMENT+0x2a0>)
+ 8000516:	781b      	ldrb	r3, [r3, #0]
+ 8000518:	b2db      	uxtb	r3, r3
+ 800051a:	2b00      	cmp	r3, #0
+ 800051c:	d0fa      	beq.n	8000514 <USB_MANAGEMENT+0x9c>
+						USB_TRANSMITTED_EP0=0;									//Resetto flag trasmissione completata. 
+ 800051e:	4b7e      	ldr	r3, [pc, #504]	; (8000718 <USB_MANAGEMENT+0x2a0>)
+ 8000520:	2200      	movs	r2, #0
+ 8000522:	701a      	strb	r2, [r3, #0]
+						SET_DATA0_EP0();
+ 8000524:	f7ff fe82 	bl	800022c <SET_DATA0_EP0>
+						Send_EP0(Configuration_Descriptor_2,3);					//Invio la terza parte del Configuration_Descriptor.
+ 8000528:	2103      	movs	r1, #3
+ 800052a:	487d      	ldr	r0, [pc, #500]	; (8000720 <USB_MANAGEMENT+0x2a8>)
+ 800052c:	f7ff fea4 	bl	8000278 <Send_EP0>
+						while(USB_TRANSMITTED_EP0==0)	{}						//Aspetto che venga inviato.
+ 8000530:	bf00      	nop
+ 8000532:	4b79      	ldr	r3, [pc, #484]	; (8000718 <USB_MANAGEMENT+0x2a0>)
+ 8000534:	781b      	ldrb	r3, [r3, #0]
+ 8000536:	b2db      	uxtb	r3, r3
+ 8000538:	2b00      	cmp	r3, #0
+ 800053a:	d0fa      	beq.n	8000532 <USB_MANAGEMENT+0xba>
+						USB_TRANSMITTED_EP0=0;	}	}							//Resetto flag trasmissione completata. 
+ 800053c:	4b76      	ldr	r3, [pc, #472]	; (8000718 <USB_MANAGEMENT+0x2a0>)
+ 800053e:	2200      	movs	r2, #0
+ 8000540:	701a      	strb	r2, [r3, #0]
+				if(p_mem_8[5]==0x01)			{								//Se REQUEST Device_Descriptor..
+ 8000542:	e0d1      	b.n	80006e8 <USB_MANAGEMENT+0x270>
+										
+				else if(p_mem_8[5]==0x06)		{								//Se REQUEST DEVICE_QUALIFIER_DESCIPTOR..
+ 8000544:	687b      	ldr	r3, [r7, #4]
+ 8000546:	3305      	adds	r3, #5
+ 8000548:	781b      	ldrb	r3, [r3, #0]
+ 800054a:	2b06      	cmp	r3, #6
+ 800054c:	f040 80cc 	bne.w	80006e8 <USB_MANAGEMENT+0x270>
+					STALL_TX_EP0();				}								//Manda REQUEST_ERROR.	
+ 8000550:	f7ff fe54 	bl	80001fc <STALL_TX_EP0>
+				if(p_mem_8[5]==0x01)			{								//Se REQUEST Device_Descriptor..
+ 8000554:	e0c8      	b.n	80006e8 <USB_MANAGEMENT+0x270>
+				
+				//while(USB_TRANSMITTED_EP0==0)	{}								//Aspetto che Device_Descriptor venga inviato.
+				//USB_TRANSMITTED_EP0=0;										
+				}	//Reset flag trasmissione.							
+						
+			else if ( p_mem_8[0]==0x00 && p_mem_8[1]==0x05 )	{				//Se viene ricevuta richiesta SET_ADDRESS..
+ 8000556:	687b      	ldr	r3, [r7, #4]
+ 8000558:	781b      	ldrb	r3, [r3, #0]
+ 800055a:	2b00      	cmp	r3, #0
+ 800055c:	d11c      	bne.n	8000598 <USB_MANAGEMENT+0x120>
+ 800055e:	687b      	ldr	r3, [r7, #4]
+ 8000560:	3301      	adds	r3, #1
+ 8000562:	781b      	ldrb	r3, [r3, #0]
+ 8000564:	2b05      	cmp	r3, #5
+ 8000566:	d117      	bne.n	8000598 <USB_MANAGEMENT+0x120>
+				Send_EP0(0,0);												//Invia ACK.
+ 8000568:	2100      	movs	r1, #0
+ 800056a:	2000      	movs	r0, #0
+ 800056c:	f7ff fe84 	bl	8000278 <Send_EP0>
+				while(USB_TRANSMITTED_EP0==0)	{}								//Aspetto che ACK venga inviato.
+ 8000570:	bf00      	nop
+ 8000572:	4b69      	ldr	r3, [pc, #420]	; (8000718 <USB_MANAGEMENT+0x2a0>)
+ 8000574:	781b      	ldrb	r3, [r3, #0]
+ 8000576:	b2db      	uxtb	r3, r3
+ 8000578:	2b00      	cmp	r3, #0
+ 800057a:	d0fa      	beq.n	8000572 <USB_MANAGEMENT+0xfa>
+				USB_TRANSMITTED_EP0=0;											//Resetto flag.
+ 800057c:	4b66      	ldr	r3, [pc, #408]	; (8000718 <USB_MANAGEMENT+0x2a0>)
+ 800057e:	2200      	movs	r2, #0
+ 8000580:	701a      	strb	r2, [r3, #0]
+				USB_DADDR |= (p_mem_8[4] & 0x7F);								//Scrivo indirizzo device assegnato.
+ 8000582:	4b68      	ldr	r3, [pc, #416]	; (8000724 <USB_MANAGEMENT+0x2ac>)
+ 8000584:	681a      	ldr	r2, [r3, #0]
+ 8000586:	687b      	ldr	r3, [r7, #4]
+ 8000588:	3304      	adds	r3, #4
+ 800058a:	781b      	ldrb	r3, [r3, #0]
+ 800058c:	f003 037f 	and.w	r3, r3, #127	; 0x7f
+ 8000590:	4964      	ldr	r1, [pc, #400]	; (8000724 <USB_MANAGEMENT+0x2ac>)
+ 8000592:	4313      	orrs	r3, r2
+ 8000594:	600b      	str	r3, [r1, #0]
+ 8000596:	e0a8      	b.n	80006ea <USB_MANAGEMENT+0x272>
+			}
+			
+			else if ( p_mem_8[0]==0x00 && p_mem_8[1]==0x09 )	{				//Se viene ricevuta richiesta SET_CONFIGURATION..
+ 8000598:	687b      	ldr	r3, [r7, #4]
+ 800059a:	781b      	ldrb	r3, [r3, #0]
+ 800059c:	2b00      	cmp	r3, #0
+ 800059e:	d112      	bne.n	80005c6 <USB_MANAGEMENT+0x14e>
+ 80005a0:	687b      	ldr	r3, [r7, #4]
+ 80005a2:	3301      	adds	r3, #1
+ 80005a4:	781b      	ldrb	r3, [r3, #0]
+ 80005a6:	2b09      	cmp	r3, #9
+ 80005a8:	d10d      	bne.n	80005c6 <USB_MANAGEMENT+0x14e>
+				Send_EP0(0,0);												//Invia ACK.
+ 80005aa:	2100      	movs	r1, #0
+ 80005ac:	2000      	movs	r0, #0
+ 80005ae:	f7ff fe63 	bl	8000278 <Send_EP0>
+				while(USB_TRANSMITTED_EP0==0)	{}								//Aspetto che ACK venga inviato.
+ 80005b2:	bf00      	nop
+ 80005b4:	4b58      	ldr	r3, [pc, #352]	; (8000718 <USB_MANAGEMENT+0x2a0>)
+ 80005b6:	781b      	ldrb	r3, [r3, #0]
+ 80005b8:	b2db      	uxtb	r3, r3
+ 80005ba:	2b00      	cmp	r3, #0
+ 80005bc:	d0fa      	beq.n	80005b4 <USB_MANAGEMENT+0x13c>
+				USB_TRANSMITTED_EP0=0;							}				//Resetto flag.
+ 80005be:	4b56      	ldr	r3, [pc, #344]	; (8000718 <USB_MANAGEMENT+0x2a0>)
+ 80005c0:	2200      	movs	r2, #0
+ 80005c2:	701a      	strb	r2, [r3, #0]
+ 80005c4:	e091      	b.n	80006ea <USB_MANAGEMENT+0x272>
+				
+			else if ( p_mem_8[0]==0xA1 && p_mem_8[1]==0x21 )	{				//Se viene ricevuta richiesta GET_LINE_CODING..
+ 80005c6:	687b      	ldr	r3, [r7, #4]
+ 80005c8:	781b      	ldrb	r3, [r3, #0]
+ 80005ca:	2ba1      	cmp	r3, #161	; 0xa1
+ 80005cc:	d112      	bne.n	80005f4 <USB_MANAGEMENT+0x17c>
+ 80005ce:	687b      	ldr	r3, [r7, #4]
+ 80005d0:	3301      	adds	r3, #1
+ 80005d2:	781b      	ldrb	r3, [r3, #0]
+ 80005d4:	2b21      	cmp	r3, #33	; 0x21
+ 80005d6:	d10d      	bne.n	80005f4 <USB_MANAGEMENT+0x17c>
+				Send_EP0(Line_Coding,7);
+ 80005d8:	2107      	movs	r1, #7
+ 80005da:	4853      	ldr	r0, [pc, #332]	; (8000728 <USB_MANAGEMENT+0x2b0>)
+ 80005dc:	f7ff fe4c 	bl	8000278 <Send_EP0>
+				while(USB_TRANSMITTED_EP0==0)	{}								//Aspetto che ACK venga inviato.
+ 80005e0:	bf00      	nop
+ 80005e2:	4b4d      	ldr	r3, [pc, #308]	; (8000718 <USB_MANAGEMENT+0x2a0>)
+ 80005e4:	781b      	ldrb	r3, [r3, #0]
+ 80005e6:	b2db      	uxtb	r3, r3
+ 80005e8:	2b00      	cmp	r3, #0
+ 80005ea:	d0fa      	beq.n	80005e2 <USB_MANAGEMENT+0x16a>
+				USB_TRANSMITTED_EP0=0;							}				//Resetto flag.
+ 80005ec:	4b4a      	ldr	r3, [pc, #296]	; (8000718 <USB_MANAGEMENT+0x2a0>)
+ 80005ee:	2200      	movs	r2, #0
+ 80005f0:	701a      	strb	r2, [r3, #0]
+ 80005f2:	e07a      	b.n	80006ea <USB_MANAGEMENT+0x272>
+			
+			else if ( p_mem_8[0]==0x21 && p_mem_8[1]==0x22 )	{				//Se viene ricevuta richiesta SET_CONTROL_LINE_STATE..
+ 80005f4:	687b      	ldr	r3, [r7, #4]
+ 80005f6:	781b      	ldrb	r3, [r3, #0]
+ 80005f8:	2b21      	cmp	r3, #33	; 0x21
+ 80005fa:	d11e      	bne.n	800063a <USB_MANAGEMENT+0x1c2>
+ 80005fc:	687b      	ldr	r3, [r7, #4]
+ 80005fe:	3301      	adds	r3, #1
+ 8000600:	781b      	ldrb	r3, [r3, #0]
+ 8000602:	2b22      	cmp	r3, #34	; 0x22
+ 8000604:	d119      	bne.n	800063a <USB_MANAGEMENT+0x1c2>
+				Control_Line_State[0] = p_mem_8[4];
+ 8000606:	687b      	ldr	r3, [r7, #4]
+ 8000608:	3304      	adds	r3, #4
+ 800060a:	781b      	ldrb	r3, [r3, #0]
+ 800060c:	b29a      	uxth	r2, r3
+ 800060e:	4b47      	ldr	r3, [pc, #284]	; (800072c <USB_MANAGEMENT+0x2b4>)
+ 8000610:	801a      	strh	r2, [r3, #0]
+				Control_Line_State[1] = p_mem_8[5];
+ 8000612:	687b      	ldr	r3, [r7, #4]
+ 8000614:	3305      	adds	r3, #5
+ 8000616:	781b      	ldrb	r3, [r3, #0]
+ 8000618:	b29a      	uxth	r2, r3
+ 800061a:	4b44      	ldr	r3, [pc, #272]	; (800072c <USB_MANAGEMENT+0x2b4>)
+ 800061c:	805a      	strh	r2, [r3, #2]
+				Send_EP0(0,0);												//Mando ACK.
+ 800061e:	2100      	movs	r1, #0
+ 8000620:	2000      	movs	r0, #0
+ 8000622:	f7ff fe29 	bl	8000278 <Send_EP0>
+				while(USB_TRANSMITTED_EP0==0)	{}								//Aspetto che ACK venga inviato.
+ 8000626:	bf00      	nop
+ 8000628:	4b3b      	ldr	r3, [pc, #236]	; (8000718 <USB_MANAGEMENT+0x2a0>)
+ 800062a:	781b      	ldrb	r3, [r3, #0]
+ 800062c:	b2db      	uxtb	r3, r3
+ 800062e:	2b00      	cmp	r3, #0
+ 8000630:	d0fa      	beq.n	8000628 <USB_MANAGEMENT+0x1b0>
+				USB_TRANSMITTED_EP0=0;							}				//Resetto flag.
+ 8000632:	4b39      	ldr	r3, [pc, #228]	; (8000718 <USB_MANAGEMENT+0x2a0>)
+ 8000634:	2200      	movs	r2, #0
+ 8000636:	701a      	strb	r2, [r3, #0]
+ 8000638:	e057      	b.n	80006ea <USB_MANAGEMENT+0x272>
+			
+			else if ( p_mem_8[0]==0x21 && p_mem_8[1]==0x20 )	{				//Se viene ricevuta richiesta SET_LINE_CODING..
+ 800063a:	687b      	ldr	r3, [r7, #4]
+ 800063c:	781b      	ldrb	r3, [r3, #0]
+ 800063e:	2b21      	cmp	r3, #33	; 0x21
+ 8000640:	d13b      	bne.n	80006ba <USB_MANAGEMENT+0x242>
+ 8000642:	687b      	ldr	r3, [r7, #4]
+ 8000644:	3301      	adds	r3, #1
+ 8000646:	781b      	ldrb	r3, [r3, #0]
+ 8000648:	2b20      	cmp	r3, #32
+ 800064a:	d136      	bne.n	80006ba <USB_MANAGEMENT+0x242>
+				EN_RX_EP0();													//Attivo la ricezione.
+ 800064c:	f7ff fd7e 	bl	800014c <EN_RX_EP0>
+				while(USB_RECEIVED_EP0==0) {};									//Aspetto la ricezione del pacchetto DATA.
+ 8000650:	bf00      	nop
+ 8000652:	4b2e      	ldr	r3, [pc, #184]	; (800070c <USB_MANAGEMENT+0x294>)
+ 8000654:	781b      	ldrb	r3, [r3, #0]
+ 8000656:	b2db      	uxtb	r3, r3
+ 8000658:	2b00      	cmp	r3, #0
+ 800065a:	d0fa      	beq.n	8000652 <USB_MANAGEMENT+0x1da>
+				USB_RECEIVED_EP0=0;
+ 800065c:	4b2b      	ldr	r3, [pc, #172]	; (800070c <USB_MANAGEMENT+0x294>)
+ 800065e:	2200      	movs	r2, #0
+ 8000660:	701a      	strb	r2, [r3, #0]
+				Line_Coding[0] = p_mem_8[0];
+ 8000662:	687b      	ldr	r3, [r7, #4]
+ 8000664:	781a      	ldrb	r2, [r3, #0]
+ 8000666:	4b30      	ldr	r3, [pc, #192]	; (8000728 <USB_MANAGEMENT+0x2b0>)
+ 8000668:	701a      	strb	r2, [r3, #0]
+				Line_Coding[1] = p_mem_8[1];
+ 800066a:	687b      	ldr	r3, [r7, #4]
+ 800066c:	785a      	ldrb	r2, [r3, #1]
+ 800066e:	4b2e      	ldr	r3, [pc, #184]	; (8000728 <USB_MANAGEMENT+0x2b0>)
+ 8000670:	705a      	strb	r2, [r3, #1]
+				Line_Coding[2] = p_mem_8[4];
+ 8000672:	687b      	ldr	r3, [r7, #4]
+ 8000674:	791a      	ldrb	r2, [r3, #4]
+ 8000676:	4b2c      	ldr	r3, [pc, #176]	; (8000728 <USB_MANAGEMENT+0x2b0>)
+ 8000678:	709a      	strb	r2, [r3, #2]
+				Line_Coding[3] = p_mem_8[5];
+ 800067a:	687b      	ldr	r3, [r7, #4]
+ 800067c:	795a      	ldrb	r2, [r3, #5]
+ 800067e:	4b2a      	ldr	r3, [pc, #168]	; (8000728 <USB_MANAGEMENT+0x2b0>)
+ 8000680:	70da      	strb	r2, [r3, #3]
+				Line_Coding[4] = p_mem_8[8];
+ 8000682:	687b      	ldr	r3, [r7, #4]
+ 8000684:	7a1a      	ldrb	r2, [r3, #8]
+ 8000686:	4b28      	ldr	r3, [pc, #160]	; (8000728 <USB_MANAGEMENT+0x2b0>)
+ 8000688:	711a      	strb	r2, [r3, #4]
+				Line_Coding[5] = p_mem_8[9];
+ 800068a:	687b      	ldr	r3, [r7, #4]
+ 800068c:	7a5a      	ldrb	r2, [r3, #9]
+ 800068e:	4b26      	ldr	r3, [pc, #152]	; (8000728 <USB_MANAGEMENT+0x2b0>)
+ 8000690:	715a      	strb	r2, [r3, #5]
+				Line_Coding[6] = p_mem_8[12];
+ 8000692:	687b      	ldr	r3, [r7, #4]
+ 8000694:	7b1a      	ldrb	r2, [r3, #12]
+ 8000696:	4b24      	ldr	r3, [pc, #144]	; (8000728 <USB_MANAGEMENT+0x2b0>)
+ 8000698:	719a      	strb	r2, [r3, #6]
+				SET_DATA1_EP0();												//Configuro pacchetto come DATA1.
+ 800069a:	f7ff fdd9 	bl	8000250 <SET_DATA1_EP0>
+				Send_EP0(0,0);												//Mando ACK.
+ 800069e:	2100      	movs	r1, #0
+ 80006a0:	2000      	movs	r0, #0
+ 80006a2:	f7ff fde9 	bl	8000278 <Send_EP0>
+				while(USB_TRANSMITTED_EP0==0)	{}								//Aspetto che ACK venga inviato.
+ 80006a6:	bf00      	nop
+ 80006a8:	4b1b      	ldr	r3, [pc, #108]	; (8000718 <USB_MANAGEMENT+0x2a0>)
+ 80006aa:	781b      	ldrb	r3, [r3, #0]
+ 80006ac:	b2db      	uxtb	r3, r3
+ 80006ae:	2b00      	cmp	r3, #0
+ 80006b0:	d0fa      	beq.n	80006a8 <USB_MANAGEMENT+0x230>
+				USB_TRANSMITTED_EP0=0;							}				//Resetto flag.
+ 80006b2:	4b19      	ldr	r3, [pc, #100]	; (8000718 <USB_MANAGEMENT+0x2a0>)
+ 80006b4:	2200      	movs	r2, #0
+ 80006b6:	701a      	strb	r2, [r3, #0]
+ 80006b8:	e017      	b.n	80006ea <USB_MANAGEMENT+0x272>
+
+			else if ( p_mem_8[0]==0x02 && p_mem_8[1]==0x01 )	{				//Se viene ricevuta richiesta CLEAR_FEATURE..
+ 80006ba:	687b      	ldr	r3, [r7, #4]
+ 80006bc:	781b      	ldrb	r3, [r3, #0]
+ 80006be:	2b02      	cmp	r3, #2
+ 80006c0:	d113      	bne.n	80006ea <USB_MANAGEMENT+0x272>
+ 80006c2:	687b      	ldr	r3, [r7, #4]
+ 80006c4:	3301      	adds	r3, #1
+ 80006c6:	781b      	ldrb	r3, [r3, #0]
+ 80006c8:	2b01      	cmp	r3, #1
+ 80006ca:	d10e      	bne.n	80006ea <USB_MANAGEMENT+0x272>
+				Send_EP0(0,0);
+ 80006cc:	2100      	movs	r1, #0
+ 80006ce:	2000      	movs	r0, #0
+ 80006d0:	f7ff fdd2 	bl	8000278 <Send_EP0>
+				while(USB_TRANSMITTED_EP0==0)	{}								//Aspetto che ACK venga inviato.
+ 80006d4:	bf00      	nop
+ 80006d6:	4b10      	ldr	r3, [pc, #64]	; (8000718 <USB_MANAGEMENT+0x2a0>)
+ 80006d8:	781b      	ldrb	r3, [r3, #0]
+ 80006da:	b2db      	uxtb	r3, r3
+ 80006dc:	2b00      	cmp	r3, #0
+ 80006de:	d0fa      	beq.n	80006d6 <USB_MANAGEMENT+0x25e>
+				USB_TRANSMITTED_EP0=0;							}				//Resetto flag.
+ 80006e0:	4b0d      	ldr	r3, [pc, #52]	; (8000718 <USB_MANAGEMENT+0x2a0>)
+ 80006e2:	2200      	movs	r2, #0
+ 80006e4:	701a      	strb	r2, [r3, #0]
+ 80006e6:	e000      	b.n	80006ea <USB_MANAGEMENT+0x272>
+				if(p_mem_8[5]==0x01)			{								//Se REQUEST Device_Descriptor..
+ 80006e8:	bf00      	nop
+			
+			EN_RX_EP0();
+ 80006ea:	f7ff fd2f 	bl	800014c <EN_RX_EP0>
+		}							//END EP0.
+		
+		if(USB_RECEIVED_EP2)	{							//Se ricevo dati EP2.
+ 80006ee:	4b10      	ldr	r3, [pc, #64]	; (8000730 <USB_MANAGEMENT+0x2b8>)
+ 80006f0:	781b      	ldrb	r3, [r3, #0]
+ 80006f2:	b2db      	uxtb	r3, r3
+ 80006f4:	2b00      	cmp	r3, #0
+ 80006f6:	d004      	beq.n	8000702 <USB_MANAGEMENT+0x28a>
+			USB_RECEIVED_EP2 = 0;						//Resetto flag ricezione EP2.
+ 80006f8:	4b0d      	ldr	r3, [pc, #52]	; (8000730 <USB_MANAGEMENT+0x2b8>)
+ 80006fa:	2200      	movs	r2, #0
+ 80006fc:	701a      	strb	r2, [r3, #0]
+			EN_RX_EP2();		}
+ 80006fe:	f7ff fe77 	bl	80003f0 <EN_RX_EP2>
+	
+}
+ 8000702:	bf00      	nop
+ 8000704:	3708      	adds	r7, #8
+ 8000706:	46bd      	mov	sp, r7
+ 8000708:	bd80      	pop	{r7, pc}
+ 800070a:	bf00      	nop
+ 800070c:	20000020 	.word	0x20000020
+ 8000710:	40006080 	.word	0x40006080
+ 8000714:	08000ecc 	.word	0x08000ecc
+ 8000718:	20000021 	.word	0x20000021
+ 800071c:	08000ee0 	.word	0x08000ee0
+ 8000720:	08000f20 	.word	0x08000f20
+ 8000724:	40005c4c 	.word	0x40005c4c
+ 8000728:	20000038 	.word	0x20000038
+ 800072c:	20000040 	.word	0x20000040
+ 8000730:	20000024 	.word	0x20000024
+
+08000734 <Send_EP1_Jumbo>:
+
+//Function used to send packets bigger than 32 byte.
+void Send_EP1_Jumbo(uint8_t* data, uint32_t len)	{
+ 8000734:	b580      	push	{r7, lr}
+ 8000736:	b084      	sub	sp, #16
+ 8000738:	af00      	add	r7, sp, #0
+ 800073a:	6078      	str	r0, [r7, #4]
+ 800073c:	6039      	str	r1, [r7, #0]
+	if(len<32)	{Send_EP1(data,len);return;}				//If the packet is not bigger than 32 byte use the standard function Send_EP1.
+ 800073e:	683b      	ldr	r3, [r7, #0]
+ 8000740:	2b1f      	cmp	r3, #31
+ 8000742:	d804      	bhi.n	800074e <Send_EP1_Jumbo+0x1a>
+ 8000744:	6839      	ldr	r1, [r7, #0]
+ 8000746:	6878      	ldr	r0, [r7, #4]
+ 8000748:	f7ff fdc8 	bl	80002dc <Send_EP1>
+ 800074c:	e020      	b.n	8000790 <Send_EP1_Jumbo+0x5c>
+	uint32_t len_32 = len%32;								//Variable to check if the Jumbo packet size is a multiple o 32 byte and to calculate the last subpacket size.
+ 800074e:	683b      	ldr	r3, [r7, #0]
+ 8000750:	f003 031f 	and.w	r3, r3, #31
+ 8000754:	60fb      	str	r3, [r7, #12]
+	N_JUMBO_SUBPACKETS = len/32;							//Calculation of number of packet to send.			
+ 8000756:	683b      	ldr	r3, [r7, #0]
+ 8000758:	095b      	lsrs	r3, r3, #5
+ 800075a:	4a0f      	ldr	r2, [pc, #60]	; (8000798 <Send_EP1_Jumbo+0x64>)
+ 800075c:	6013      	str	r3, [r2, #0]
+	if((len_32) != 0) 	{
+ 800075e:	68fb      	ldr	r3, [r7, #12]
+ 8000760:	2b00      	cmp	r3, #0
+ 8000762:	d008      	beq.n	8000776 <Send_EP1_Jumbo+0x42>
+		N_JUMBO_SUBPACKETS++;								//If the Jumbo packet size is not a multiple of 32 add 1 packet of the remaining data.
+ 8000764:	4b0c      	ldr	r3, [pc, #48]	; (8000798 <Send_EP1_Jumbo+0x64>)
+ 8000766:	681b      	ldr	r3, [r3, #0]
+ 8000768:	3301      	adds	r3, #1
+ 800076a:	4a0b      	ldr	r2, [pc, #44]	; (8000798 <Send_EP1_Jumbo+0x64>)
+ 800076c:	6013      	str	r3, [r2, #0]
+		JUMBO_LAST_SUBPACKET_SIZE=len_32;}
+ 800076e:	4a0b      	ldr	r2, [pc, #44]	; (800079c <Send_EP1_Jumbo+0x68>)
+ 8000770:	68fb      	ldr	r3, [r7, #12]
+ 8000772:	6013      	str	r3, [r2, #0]
+ 8000774:	e002      	b.n	800077c <Send_EP1_Jumbo+0x48>
+	else				{ 
+		JUMBO_LAST_SUBPACKET_SIZE=32;	}
+ 8000776:	4b09      	ldr	r3, [pc, #36]	; (800079c <Send_EP1_Jumbo+0x68>)
+ 8000778:	2220      	movs	r2, #32
+ 800077a:	601a      	str	r2, [r3, #0]
+	JUMBO_BUFF_ADDR = (uint8_t*) data;						//Point JUMBO_BUFF_ADDR	to the data trasmission buffer.
+ 800077c:	4a08      	ldr	r2, [pc, #32]	; (80007a0 <Send_EP1_Jumbo+0x6c>)
+ 800077e:	687b      	ldr	r3, [r7, #4]
+ 8000780:	6013      	str	r3, [r2, #0]
+	Send_EP1(data,32);										//Send first packet of the Jumpo packet.
+ 8000782:	2120      	movs	r1, #32
+ 8000784:	6878      	ldr	r0, [r7, #4]
+ 8000786:	f7ff fda9 	bl	80002dc <Send_EP1>
+	N_JUMBO_SUBPACKETS_TXED=1;		}						//Set the number of transmitted packets to 1.									
+ 800078a:	4b06      	ldr	r3, [pc, #24]	; (80007a4 <Send_EP1_Jumbo+0x70>)
+ 800078c:	2201      	movs	r2, #1
+ 800078e:	601a      	str	r2, [r3, #0]
+ 8000790:	3710      	adds	r7, #16
+ 8000792:	46bd      	mov	sp, r7
+ 8000794:	bd80      	pop	{r7, pc}
+ 8000796:	bf00      	nop
+ 8000798:	20000028 	.word	0x20000028
+ 800079c:	20000034 	.word	0x20000034
+ 80007a0:	20000030 	.word	0x20000030
+ 80007a4:	2000002c 	.word	0x2000002c
+
+080007a8 <Manage_EP1_Jumbo>:
+
+//Function used to send the remaining subpackets of the Jumbo packet.
+void Manage_EP1_Jumbo()			{
+ 80007a8:	b580      	push	{r7, lr}
+ 80007aa:	af00      	add	r7, sp, #0
+	JUMBO_BUFF_ADDR+=32;
+ 80007ac:	4b0f      	ldr	r3, [pc, #60]	; (80007ec <Manage_EP1_Jumbo+0x44>)
+ 80007ae:	681b      	ldr	r3, [r3, #0]
+ 80007b0:	3320      	adds	r3, #32
+ 80007b2:	4a0e      	ldr	r2, [pc, #56]	; (80007ec <Manage_EP1_Jumbo+0x44>)
+ 80007b4:	6013      	str	r3, [r2, #0]
+	if(N_JUMBO_SUBPACKETS>1)	{Send_EP1((uint8_t*)JUMBO_BUFF_ADDR,32);}
+ 80007b6:	4b0e      	ldr	r3, [pc, #56]	; (80007f0 <Manage_EP1_Jumbo+0x48>)
+ 80007b8:	681b      	ldr	r3, [r3, #0]
+ 80007ba:	2b01      	cmp	r3, #1
+ 80007bc:	d906      	bls.n	80007cc <Manage_EP1_Jumbo+0x24>
+ 80007be:	4b0b      	ldr	r3, [pc, #44]	; (80007ec <Manage_EP1_Jumbo+0x44>)
+ 80007c0:	681b      	ldr	r3, [r3, #0]
+ 80007c2:	2120      	movs	r1, #32
+ 80007c4:	4618      	mov	r0, r3
+ 80007c6:	f7ff fd89 	bl	80002dc <Send_EP1>
+ 80007ca:	e007      	b.n	80007dc <Manage_EP1_Jumbo+0x34>
+	else						{Send_EP1((uint8_t*)JUMBO_BUFF_ADDR,JUMBO_LAST_SUBPACKET_SIZE);}
+ 80007cc:	4b07      	ldr	r3, [pc, #28]	; (80007ec <Manage_EP1_Jumbo+0x44>)
+ 80007ce:	681a      	ldr	r2, [r3, #0]
+ 80007d0:	4b08      	ldr	r3, [pc, #32]	; (80007f4 <Manage_EP1_Jumbo+0x4c>)
+ 80007d2:	681b      	ldr	r3, [r3, #0]
+ 80007d4:	4619      	mov	r1, r3
+ 80007d6:	4610      	mov	r0, r2
+ 80007d8:	f7ff fd80 	bl	80002dc <Send_EP1>
+	N_JUMBO_SUBPACKETS_TXED++;	}
+ 80007dc:	4b06      	ldr	r3, [pc, #24]	; (80007f8 <Manage_EP1_Jumbo+0x50>)
+ 80007de:	681b      	ldr	r3, [r3, #0]
+ 80007e0:	3301      	adds	r3, #1
+ 80007e2:	4a05      	ldr	r2, [pc, #20]	; (80007f8 <Manage_EP1_Jumbo+0x50>)
+ 80007e4:	6013      	str	r3, [r2, #0]
+ 80007e6:	bf00      	nop
+ 80007e8:	bd80      	pop	{r7, pc}
+ 80007ea:	bf00      	nop
+ 80007ec:	20000030 	.word	0x20000030
+ 80007f0:	20000028 	.word	0x20000028
+ 80007f4:	20000034 	.word	0x20000034
+ 80007f8:	2000002c 	.word	0x2000002c
+
+080007fc <Read_EP1>:
+
+//
+void Read_EP1(uint8_t* Received_data, uint32_t* len)		{
+ 80007fc:	b580      	push	{r7, lr}
+ 80007fe:	b086      	sub	sp, #24
+ 8000800:	af00      	add	r7, sp, #0
+ 8000802:	6078      	str	r0, [r7, #4]
+ 8000804:	6039      	str	r1, [r7, #0]
+	uint32_t N_Byte_Received = USB_COUNT1_RX & 0x03FF;	//Check the number of byte received
+ 8000806:	4b1d      	ldr	r3, [pc, #116]	; (800087c <Read_EP1+0x80>)
+ 8000808:	681b      	ldr	r3, [r3, #0]
+ 800080a:	f3c3 0309 	ubfx	r3, r3, #0, #10
+ 800080e:	60fb      	str	r3, [r7, #12]
+	uint32_t ii=0;	
+ 8000810:	2300      	movs	r3, #0
+ 8000812:	617b      	str	r3, [r7, #20]
+	uint8_t* p_mem_8 = (uint8_t*) USB_RX1_BASE_32;
+ 8000814:	4b1a      	ldr	r3, [pc, #104]	; (8000880 <Read_EP1+0x84>)
+ 8000816:	613b      	str	r3, [r7, #16]
+	USB_RECEIVED_EP1 = 0;								//Reset flag EP1 reception.
+ 8000818:	4b1a      	ldr	r3, [pc, #104]	; (8000884 <Read_EP1+0x88>)
+ 800081a:	2200      	movs	r2, #0
+ 800081c:	701a      	strb	r2, [r3, #0]
+	for(ii=0;ii<N_Byte_Received;)	{
+ 800081e:	2300      	movs	r3, #0
+ 8000820:	617b      	str	r3, [r7, #20]
+ 8000822:	e01b      	b.n	800085c <Read_EP1+0x60>
+		Received_data[ii] = *p_mem_8;
+ 8000824:	687a      	ldr	r2, [r7, #4]
+ 8000826:	697b      	ldr	r3, [r7, #20]
+ 8000828:	4413      	add	r3, r2
+ 800082a:	693a      	ldr	r2, [r7, #16]
+ 800082c:	7812      	ldrb	r2, [r2, #0]
+ 800082e:	701a      	strb	r2, [r3, #0]
+		ii++;
+ 8000830:	697b      	ldr	r3, [r7, #20]
+ 8000832:	3301      	adds	r3, #1
+ 8000834:	617b      	str	r3, [r7, #20]
+		p_mem_8++;
+ 8000836:	693b      	ldr	r3, [r7, #16]
+ 8000838:	3301      	adds	r3, #1
+ 800083a:	613b      	str	r3, [r7, #16]
+		if(ii==N_Byte_Received) {break;}
+ 800083c:	697a      	ldr	r2, [r7, #20]
+ 800083e:	68fb      	ldr	r3, [r7, #12]
+ 8000840:	429a      	cmp	r2, r3
+ 8000842:	d010      	beq.n	8000866 <Read_EP1+0x6a>
+		Received_data[ii] = *p_mem_8;
+ 8000844:	687a      	ldr	r2, [r7, #4]
+ 8000846:	697b      	ldr	r3, [r7, #20]
+ 8000848:	4413      	add	r3, r2
+ 800084a:	693a      	ldr	r2, [r7, #16]
+ 800084c:	7812      	ldrb	r2, [r2, #0]
+ 800084e:	701a      	strb	r2, [r3, #0]
+		ii++;
+ 8000850:	697b      	ldr	r3, [r7, #20]
+ 8000852:	3301      	adds	r3, #1
+ 8000854:	617b      	str	r3, [r7, #20]
+		p_mem_8+=3;					}
+ 8000856:	693b      	ldr	r3, [r7, #16]
+ 8000858:	3303      	adds	r3, #3
+ 800085a:	613b      	str	r3, [r7, #16]
+	for(ii=0;ii<N_Byte_Received;)	{
+ 800085c:	697a      	ldr	r2, [r7, #20]
+ 800085e:	68fb      	ldr	r3, [r7, #12]
+ 8000860:	429a      	cmp	r2, r3
+ 8000862:	d3df      	bcc.n	8000824 <Read_EP1+0x28>
+ 8000864:	e000      	b.n	8000868 <Read_EP1+0x6c>
+		if(ii==N_Byte_Received) {break;}
+ 8000866:	bf00      	nop
+	*len=N_Byte_Received;
+ 8000868:	683b      	ldr	r3, [r7, #0]
+ 800086a:	68fa      	ldr	r2, [r7, #12]
+ 800086c:	601a      	str	r2, [r3, #0]
+	EN_RX_EP1();											}
+ 800086e:	f7ff fd67 	bl	8000340 <EN_RX_EP1>
+ 8000872:	bf00      	nop
+ 8000874:	3718      	adds	r7, #24
+ 8000876:	46bd      	mov	sp, r7
+ 8000878:	bd80      	pop	{r7, pc}
+ 800087a:	bf00      	nop
+ 800087c:	4000601c 	.word	0x4000601c
+ 8000880:	40006180 	.word	0x40006180
+ 8000884:	20000022 	.word	0x20000022
+
+08000888 <USB_LP_CAN1_RX0_IRQHandler>:
+
+
+void USB_LP_CAN1_RX0_IRQHandler(void)	{
+ 8000888:	b580      	push	{r7, lr}
+ 800088a:	af00      	add	r7, sp, #0
+	if(USB_ISTR & 0x0400) 	{						//Se viene ricevuto un USB_RESET..
+ 800088c:	4b51      	ldr	r3, [pc, #324]	; (80009d4 <USB_LP_CAN1_RX0_IRQHandler+0x14c>)
+ 800088e:	681b      	ldr	r3, [r3, #0]
+ 8000890:	f403 6380 	and.w	r3, r3, #1024	; 0x400
+ 8000894:	2b00      	cmp	r3, #0
+ 8000896:	d01e      	beq.n	80008d6 <USB_LP_CAN1_RX0_IRQHandler+0x4e>
+		USB_ISTR  = 0xFBFF;							//Clear flag USB_RESET.
+ 8000898:	4b4e      	ldr	r3, [pc, #312]	; (80009d4 <USB_LP_CAN1_RX0_IRQHandler+0x14c>)
+ 800089a:	f64f 32ff 	movw	r2, #64511	; 0xfbff
+ 800089e:	601a      	str	r2, [r3, #0]
+		USB_ENP0R = 0x8280;
+ 80008a0:	4b4d      	ldr	r3, [pc, #308]	; (80009d8 <USB_LP_CAN1_RX0_IRQHandler+0x150>)
+ 80008a2:	f248 2280 	movw	r2, #33408	; 0x8280
+ 80008a6:	601a      	str	r2, [r3, #0]
+		USB_ENP1R = 0x8081;							//EP1 BULK. 
+ 80008a8:	4b4c      	ldr	r3, [pc, #304]	; (80009dc <USB_LP_CAN1_RX0_IRQHandler+0x154>)
+ 80008aa:	f248 0281 	movw	r2, #32897	; 0x8081
+ 80008ae:	601a      	str	r2, [r3, #0]
+		USB_ENP2R = 0x8682;							//EP2 INTERRUPT.
+ 80008b0:	4b4b      	ldr	r3, [pc, #300]	; (80009e0 <USB_LP_CAN1_RX0_IRQHandler+0x158>)
+ 80008b2:	f248 6282 	movw	r2, #34434	; 0x8682
+ 80008b6:	601a      	str	r2, [r3, #0]
+		EN_RX_EP0();
+ 80008b8:	f7ff fc48 	bl	800014c <EN_RX_EP0>
+		DIS_TX_EP0();
+ 80008bc:	f7ff fc86 	bl	80001cc <DIS_TX_EP0>
+		EN_RX_EP1();
+ 80008c0:	f7ff fd3e 	bl	8000340 <EN_RX_EP1>
+		DIS_TX_EP1();
+ 80008c4:	f7ff fd7c 	bl	80003c0 <DIS_TX_EP1>
+		EN_RX_EP2();
+ 80008c8:	f7ff fd92 	bl	80003f0 <EN_RX_EP2>
+		DIS_TX_EP2();
+ 80008cc:	f7ff fdbc 	bl	8000448 <DIS_TX_EP2>
+		USB_DADDR = 0x0080;							//USB ON. ADDRESS = 0.
+ 80008d0:	4b44      	ldr	r3, [pc, #272]	; (80009e4 <USB_LP_CAN1_RX0_IRQHandler+0x15c>)
+ 80008d2:	2280      	movs	r2, #128	; 0x80
+ 80008d4:	601a      	str	r2, [r3, #0]
+		}
+	
+	if(USB_ISTR & 0x2000)	{						//Se viene rilevato un errore..
+ 80008d6:	4b3f      	ldr	r3, [pc, #252]	; (80009d4 <USB_LP_CAN1_RX0_IRQHandler+0x14c>)
+ 80008d8:	681b      	ldr	r3, [r3, #0]
+ 80008da:	f403 5300 	and.w	r3, r3, #8192	; 0x2000
+ 80008de:	2b00      	cmp	r3, #0
+ 80008e0:	d003      	beq.n	80008ea <USB_LP_CAN1_RX0_IRQHandler+0x62>
+		USB_ISTR	= 0xDFFF;		}				//Clear flag errore.
+ 80008e2:	4b3c      	ldr	r3, [pc, #240]	; (80009d4 <USB_LP_CAN1_RX0_IRQHandler+0x14c>)
+ 80008e4:	f64d 72ff 	movw	r2, #57343	; 0xdfff
+ 80008e8:	601a      	str	r2, [r3, #0]
+		
+	if(USB_ISTR & 0x8000)	{						//Se è stata completata una transazione correttamente..
+ 80008ea:	4b3a      	ldr	r3, [pc, #232]	; (80009d4 <USB_LP_CAN1_RX0_IRQHandler+0x14c>)
+ 80008ec:	681b      	ldr	r3, [r3, #0]
+ 80008ee:	f403 4300 	and.w	r3, r3, #32768	; 0x8000
+ 80008f2:	2b00      	cmp	r3, #0
+ 80008f4:	d06b      	beq.n	80009ce <USB_LP_CAN1_RX0_IRQHandler+0x146>
+		if(USB_ENP0R & 0x8000)	{					//Se la transazione è EP0 OUT..
+ 80008f6:	4b38      	ldr	r3, [pc, #224]	; (80009d8 <USB_LP_CAN1_RX0_IRQHandler+0x150>)
+ 80008f8:	681b      	ldr	r3, [r3, #0]
+ 80008fa:	f403 4300 	and.w	r3, r3, #32768	; 0x8000
+ 80008fe:	2b00      	cmp	r3, #0
+ 8000900:	d008      	beq.n	8000914 <USB_LP_CAN1_RX0_IRQHandler+0x8c>
+			USB_RECEIVED_EP0=1;						//Segnalo dati da leggere per EP0.
+ 8000902:	4b39      	ldr	r3, [pc, #228]	; (80009e8 <USB_LP_CAN1_RX0_IRQHandler+0x160>)
+ 8000904:	2201      	movs	r2, #1
+ 8000906:	701a      	strb	r2, [r3, #0]
+			USB_ENP0R = 0x0280; 					//Clear flag CTR_RX. EP0 Control. EP0 ADDR=0.
+ 8000908:	4b33      	ldr	r3, [pc, #204]	; (80009d8 <USB_LP_CAN1_RX0_IRQHandler+0x150>)
+ 800090a:	f44f 7220 	mov.w	r2, #640	; 0x280
+ 800090e:	601a      	str	r2, [r3, #0]
+			DIS_RX_EP0();
+ 8000910:	f7ff fc30 	bl	8000174 <DIS_RX_EP0>
+			}
+		
+		if(USB_ENP0R & 0x0080)	{					//Se la transazione è EP0 IN..
+ 8000914:	4b30      	ldr	r3, [pc, #192]	; (80009d8 <USB_LP_CAN1_RX0_IRQHandler+0x150>)
+ 8000916:	681b      	ldr	r3, [r3, #0]
+ 8000918:	f003 0380 	and.w	r3, r3, #128	; 0x80
+ 800091c:	2b00      	cmp	r3, #0
+ 800091e:	d008      	beq.n	8000932 <USB_LP_CAN1_RX0_IRQHandler+0xaa>
+			USB_TRANSMITTED_EP0=1;
+ 8000920:	4b32      	ldr	r3, [pc, #200]	; (80009ec <USB_LP_CAN1_RX0_IRQHandler+0x164>)
+ 8000922:	2201      	movs	r2, #1
+ 8000924:	701a      	strb	r2, [r3, #0]
+			USB_ENP0R = 0x8200; 					//EP0 Control. Clear flag CTR_TX. EP0 ADDR=0.
+ 8000926:	4b2c      	ldr	r3, [pc, #176]	; (80009d8 <USB_LP_CAN1_RX0_IRQHandler+0x150>)
+ 8000928:	f44f 4202 	mov.w	r2, #33280	; 0x8200
+ 800092c:	601a      	str	r2, [r3, #0]
+			DIS_TX_EP0();							//EP0 TX NAK.
+ 800092e:	f7ff fc4d 	bl	80001cc <DIS_TX_EP0>
+			}
+		
+		if(USB_ENP1R & 0x8000)	{					//Se la transazione è EP1 OUT..
+ 8000932:	4b2a      	ldr	r3, [pc, #168]	; (80009dc <USB_LP_CAN1_RX0_IRQHandler+0x154>)
+ 8000934:	681b      	ldr	r3, [r3, #0]
+ 8000936:	f403 4300 	and.w	r3, r3, #32768	; 0x8000
+ 800093a:	2b00      	cmp	r3, #0
+ 800093c:	d007      	beq.n	800094e <USB_LP_CAN1_RX0_IRQHandler+0xc6>
+			USB_RECEIVED_EP1=1;						//Segnalo dati da leggere per EP1.
+ 800093e:	4b2c      	ldr	r3, [pc, #176]	; (80009f0 <USB_LP_CAN1_RX0_IRQHandler+0x168>)
+ 8000940:	2201      	movs	r2, #1
+ 8000942:	701a      	strb	r2, [r3, #0]
+			USB_ENP1R = 0x0081; 					//Clear flag CTR_RX. EP1 Bulk. EP1 ADDR=1.
+ 8000944:	4b25      	ldr	r3, [pc, #148]	; (80009dc <USB_LP_CAN1_RX0_IRQHandler+0x154>)
+ 8000946:	2281      	movs	r2, #129	; 0x81
+ 8000948:	601a      	str	r2, [r3, #0]
+			DIS_RX_EP1();							//EP1 RX NAK.
+ 800094a:	f7ff fd0d 	bl	8000368 <DIS_RX_EP1>
+			}
+		
+		if(USB_ENP1R & 0x0080)	{					//Se la transazione è EP1 IN..
+ 800094e:	4b23      	ldr	r3, [pc, #140]	; (80009dc <USB_LP_CAN1_RX0_IRQHandler+0x154>)
+ 8000950:	681b      	ldr	r3, [r3, #0]
+ 8000952:	f003 0380 	and.w	r3, r3, #128	; 0x80
+ 8000956:	2b00      	cmp	r3, #0
+ 8000958:	d01b      	beq.n	8000992 <USB_LP_CAN1_RX0_IRQHandler+0x10a>
+			USB_TRANSMITTED_EP1=1;					//Segnalo trasmessi da EP1.
+ 800095a:	4b26      	ldr	r3, [pc, #152]	; (80009f4 <USB_LP_CAN1_RX0_IRQHandler+0x16c>)
+ 800095c:	2201      	movs	r2, #1
+ 800095e:	701a      	strb	r2, [r3, #0]
+			USB_ENP1R = 0x8001; 					//EP1 Bulk. Clear flag CTR_TX. EP1 ADDR=1.
+ 8000960:	4b1e      	ldr	r3, [pc, #120]	; (80009dc <USB_LP_CAN1_RX0_IRQHandler+0x154>)
+ 8000962:	f248 0201 	movw	r2, #32769	; 0x8001
+ 8000966:	601a      	str	r2, [r3, #0]
+			DIS_TX_EP1();							//EP1 TX NAK.
+ 8000968:	f7ff fd2a 	bl	80003c0 <DIS_TX_EP1>
+			if(N_JUMBO_SUBPACKETS>1)		{
+ 800096c:	4b22      	ldr	r3, [pc, #136]	; (80009f8 <USB_LP_CAN1_RX0_IRQHandler+0x170>)
+ 800096e:	681b      	ldr	r3, [r3, #0]
+ 8000970:	2b01      	cmp	r3, #1
+ 8000972:	d907      	bls.n	8000984 <USB_LP_CAN1_RX0_IRQHandler+0xfc>
+				N_JUMBO_SUBPACKETS--;
+ 8000974:	4b20      	ldr	r3, [pc, #128]	; (80009f8 <USB_LP_CAN1_RX0_IRQHandler+0x170>)
+ 8000976:	681b      	ldr	r3, [r3, #0]
+ 8000978:	3b01      	subs	r3, #1
+ 800097a:	4a1f      	ldr	r2, [pc, #124]	; (80009f8 <USB_LP_CAN1_RX0_IRQHandler+0x170>)
+ 800097c:	6013      	str	r3, [r2, #0]
+				Manage_EP1_Jumbo();			}
+ 800097e:	f7ff ff13 	bl	80007a8 <Manage_EP1_Jumbo>
+ 8000982:	e006      	b.n	8000992 <USB_LP_CAN1_RX0_IRQHandler+0x10a>
+			else if (N_JUMBO_SUBPACKETS==1)	{
+ 8000984:	4b1c      	ldr	r3, [pc, #112]	; (80009f8 <USB_LP_CAN1_RX0_IRQHandler+0x170>)
+ 8000986:	681b      	ldr	r3, [r3, #0]
+ 8000988:	2b01      	cmp	r3, #1
+ 800098a:	d102      	bne.n	8000992 <USB_LP_CAN1_RX0_IRQHandler+0x10a>
+				N_JUMBO_SUBPACKETS=0;		}	}
+ 800098c:	4b1a      	ldr	r3, [pc, #104]	; (80009f8 <USB_LP_CAN1_RX0_IRQHandler+0x170>)
+ 800098e:	2200      	movs	r2, #0
+ 8000990:	601a      	str	r2, [r3, #0]
+		
+		if(USB_ENP2R & 0x8000)	{					//Se la transazione è EP2 OUT..
+ 8000992:	4b13      	ldr	r3, [pc, #76]	; (80009e0 <USB_LP_CAN1_RX0_IRQHandler+0x158>)
+ 8000994:	681b      	ldr	r3, [r3, #0]
+ 8000996:	f403 4300 	and.w	r3, r3, #32768	; 0x8000
+ 800099a:	2b00      	cmp	r3, #0
+ 800099c:	d008      	beq.n	80009b0 <USB_LP_CAN1_RX0_IRQHandler+0x128>
+			USB_RECEIVED_EP2=1;						//Segnalo dati da leggere per EP2.
+ 800099e:	4b17      	ldr	r3, [pc, #92]	; (80009fc <USB_LP_CAN1_RX0_IRQHandler+0x174>)
+ 80009a0:	2201      	movs	r2, #1
+ 80009a2:	701a      	strb	r2, [r3, #0]
+			USB_ENP2R = 0x0682; 					//Clear flag CTR_RX. EP2 Interrupt. EP2 ADDR=2.
+ 80009a4:	4b0e      	ldr	r3, [pc, #56]	; (80009e0 <USB_LP_CAN1_RX0_IRQHandler+0x158>)
+ 80009a6:	f240 6282 	movw	r2, #1666	; 0x682
+ 80009aa:	601a      	str	r2, [r3, #0]
+			DIS_RX_EP2();							//EP2 RX NAK.
+ 80009ac:	f7ff fd34 	bl	8000418 <DIS_RX_EP2>
+			}
+		
+		if(USB_ENP2R & 0x0080)	{					//Se la transazione è EP2 IN..
+ 80009b0:	4b0b      	ldr	r3, [pc, #44]	; (80009e0 <USB_LP_CAN1_RX0_IRQHandler+0x158>)
+ 80009b2:	681b      	ldr	r3, [r3, #0]
+ 80009b4:	f003 0380 	and.w	r3, r3, #128	; 0x80
+ 80009b8:	2b00      	cmp	r3, #0
+ 80009ba:	d008      	beq.n	80009ce <USB_LP_CAN1_RX0_IRQHandler+0x146>
+			USB_TRANSMITTED_EP2=1;					//Segnalo trasmessi da EP2.
+ 80009bc:	4b10      	ldr	r3, [pc, #64]	; (8000a00 <USB_LP_CAN1_RX0_IRQHandler+0x178>)
+ 80009be:	2201      	movs	r2, #1
+ 80009c0:	701a      	strb	r2, [r3, #0]
+			USB_ENP2R = 0x8602; 					//EP2 Interrupt. Clear flag CTR_TX. EP2 ADDR=2.
+ 80009c2:	4b07      	ldr	r3, [pc, #28]	; (80009e0 <USB_LP_CAN1_RX0_IRQHandler+0x158>)
+ 80009c4:	f248 6202 	movw	r2, #34306	; 0x8602
+ 80009c8:	601a      	str	r2, [r3, #0]
+			DIS_TX_EP2();							//EP2 TX NAK.
+ 80009ca:	f7ff fd3d 	bl	8000448 <DIS_TX_EP2>
+		
+	
+	
+	}												//End CTR.
+
+}
+ 80009ce:	bf00      	nop
+ 80009d0:	bd80      	pop	{r7, pc}
+ 80009d2:	bf00      	nop
+ 80009d4:	40005c44 	.word	0x40005c44
+ 80009d8:	40005c00 	.word	0x40005c00
+ 80009dc:	40005c04 	.word	0x40005c04
+ 80009e0:	40005c08 	.word	0x40005c08
+ 80009e4:	40005c4c 	.word	0x40005c4c
+ 80009e8:	20000020 	.word	0x20000020
+ 80009ec:	20000021 	.word	0x20000021
+ 80009f0:	20000022 	.word	0x20000022
+ 80009f4:	20000023 	.word	0x20000023
+ 80009f8:	20000028 	.word	0x20000028
+ 80009fc:	20000024 	.word	0x20000024
+ 8000a00:	20000025 	.word	0x20000025
+
+08000a04 <main>:
+#include "RCC_CLOCK.h"
+#include "UART1.h"
+#include "USB-VCP.h"
+
+int main(void)
+{
+ 8000a04:	b5f0      	push	{r4, r5, r6, r7, lr}
+ 8000a06:	b0c3      	sub	sp, #268	; 0x10c
+ 8000a08:	af00      	add	r7, sp, #0
+	uint32_t 	ii=0;
+ 8000a0a:	2300      	movs	r3, #0
+ 8000a0c:	f8c7 3104 	str.w	r3, [r7, #260]	; 0x104
+	//uint32_t 	jj=0;
+	//uint8_t		BUFF_TX_EP1[128] = {0};
+	uint8_t		BUFF_RX_EP1[128] = {0};
+ 8000a10:	f107 0384 	add.w	r3, r7, #132	; 0x84
+ 8000a14:	2280      	movs	r2, #128	; 0x80
+ 8000a16:	2100      	movs	r1, #0
+ 8000a18:	4618      	mov	r0, r3
+ 8000a1a:	f000 fa03 	bl	8000e24 <memset>
+	char		BUFF_TX_EP1[128] = "Bene grazie.\nE tu?";
+ 8000a1e:	1d3e      	adds	r6, r7, #4
+ 8000a20:	4b91      	ldr	r3, [pc, #580]	; (8000c68 <main+0x264>)
+ 8000a22:	4634      	mov	r4, r6
+ 8000a24:	461d      	mov	r5, r3
+ 8000a26:	cd0f      	ldmia	r5!, {r0, r1, r2, r3}
+ 8000a28:	c40f      	stmia	r4!, {r0, r1, r2, r3}
+ 8000a2a:	682b      	ldr	r3, [r5, #0]
+ 8000a2c:	461a      	mov	r2, r3
+ 8000a2e:	8022      	strh	r2, [r4, #0]
+ 8000a30:	3402      	adds	r4, #2
+ 8000a32:	0c1b      	lsrs	r3, r3, #16
+ 8000a34:	7023      	strb	r3, [r4, #0]
+ 8000a36:	f106 0313 	add.w	r3, r6, #19
+ 8000a3a:	226d      	movs	r2, #109	; 0x6d
+ 8000a3c:	2100      	movs	r1, #0
+ 8000a3e:	4618      	mov	r0, r3
+ 8000a40:	f000 f9f0 	bl	8000e24 <memset>
+	uint32_t	VCP_RX_LEN = 0;
+ 8000a44:	463b      	mov	r3, r7
+ 8000a46:	2200      	movs	r2, #0
+ 8000a48:	601a      	str	r2, [r3, #0]
+	
+	NVIC->ICER[0] = 0xFFFFFFFF;						//Disattivo tutti gli interrupt.	
+ 8000a4a:	4b88      	ldr	r3, [pc, #544]	; (8000c6c <main+0x268>)
+ 8000a4c:	f04f 32ff 	mov.w	r2, #4294967295
+ 8000a50:	f8c3 2080 	str.w	r2, [r3, #128]	; 0x80
+
+	ClockInit();									//SYSTEM CLOCK = 72Mhz. AHB CLOCK = 72Mhz. APB1 CLOCK = 36Mhz. APB2 CLOCK = 72Mhz. USB CLOCK = 48Mhz.  
+ 8000a54:	4b86      	ldr	r3, [pc, #536]	; (8000c70 <main+0x26c>)
+ 8000a56:	2212      	movs	r2, #18
+ 8000a58:	601a      	str	r2, [r3, #0]
+ 8000a5a:	bf00      	nop
+ 8000a5c:	4b84      	ldr	r3, [pc, #528]	; (8000c70 <main+0x26c>)
+ 8000a5e:	681b      	ldr	r3, [r3, #0]
+ 8000a60:	f003 0320 	and.w	r3, r3, #32
+ 8000a64:	2b00      	cmp	r3, #0
+ 8000a66:	d0f9      	beq.n	8000a5c <main+0x58>
+ 8000a68:	4b82      	ldr	r3, [pc, #520]	; (8000c74 <main+0x270>)
+ 8000a6a:	f44f 021f 	mov.w	r2, #10420224	; 0x9f0000
+ 8000a6e:	601a      	str	r2, [r3, #0]
+ 8000a70:	4b81      	ldr	r3, [pc, #516]	; (8000c78 <main+0x274>)
+ 8000a72:	4a82      	ldr	r2, [pc, #520]	; (8000c7c <main+0x278>)
+ 8000a74:	601a      	str	r2, [r3, #0]
+ 8000a76:	bf00      	nop
+ 8000a78:	4b7f      	ldr	r3, [pc, #508]	; (8000c78 <main+0x274>)
+ 8000a7a:	681b      	ldr	r3, [r3, #0]
+ 8000a7c:	f003 0302 	and.w	r3, r3, #2
+ 8000a80:	2b00      	cmp	r3, #0
+ 8000a82:	d0f9      	beq.n	8000a78 <main+0x74>
+ 8000a84:	bf00      	nop
+ 8000a86:	4b7c      	ldr	r3, [pc, #496]	; (8000c78 <main+0x274>)
+ 8000a88:	681b      	ldr	r3, [r3, #0]
+ 8000a8a:	f403 3300 	and.w	r3, r3, #131072	; 0x20000
+ 8000a8e:	2b00      	cmp	r3, #0
+ 8000a90:	d0f9      	beq.n	8000a86 <main+0x82>
+ 8000a92:	4b7b      	ldr	r3, [pc, #492]	; (8000c80 <main+0x27c>)
+ 8000a94:	4a7b      	ldr	r2, [pc, #492]	; (8000c84 <main+0x280>)
+ 8000a96:	601a      	str	r2, [r3, #0]
+ 8000a98:	bf00      	nop
+ 8000a9a:	4b79      	ldr	r3, [pc, #484]	; (8000c80 <main+0x27c>)
+ 8000a9c:	681b      	ldr	r3, [r3, #0]
+ 8000a9e:	f003 030f 	and.w	r3, r3, #15
+ 8000aa2:	2b00      	cmp	r3, #0
+ 8000aa4:	d1f9      	bne.n	8000a9a <main+0x96>
+ 8000aa6:	4b74      	ldr	r3, [pc, #464]	; (8000c78 <main+0x274>)
+ 8000aa8:	4a77      	ldr	r2, [pc, #476]	; (8000c88 <main+0x284>)
+ 8000aaa:	601a      	str	r2, [r3, #0]
+ 8000aac:	bf00      	nop
+ 8000aae:	4b72      	ldr	r3, [pc, #456]	; (8000c78 <main+0x274>)
+ 8000ab0:	681b      	ldr	r3, [r3, #0]
+ 8000ab2:	f003 7300 	and.w	r3, r3, #33554432	; 0x2000000
+ 8000ab6:	2b00      	cmp	r3, #0
+ 8000ab8:	d0f9      	beq.n	8000aae <main+0xaa>
+ 8000aba:	4b71      	ldr	r3, [pc, #452]	; (8000c80 <main+0x27c>)
+ 8000abc:	4a73      	ldr	r2, [pc, #460]	; (8000c8c <main+0x288>)
+ 8000abe:	601a      	str	r2, [r3, #0]
+ 8000ac0:	bf00      	nop
+ 8000ac2:	4b6f      	ldr	r3, [pc, #444]	; (8000c80 <main+0x27c>)
+ 8000ac4:	681b      	ldr	r3, [r3, #0]
+ 8000ac6:	f003 030f 	and.w	r3, r3, #15
+ 8000aca:	2b0a      	cmp	r3, #10
+ 8000acc:	d1f9      	bne.n	8000ac2 <main+0xbe>
+ 8000ace:	4b69      	ldr	r3, [pc, #420]	; (8000c74 <main+0x270>)
+ 8000ad0:	f44f 021f 	mov.w	r2, #10420224	; 0x9f0000
+ 8000ad4:	601a      	str	r2, [r3, #0]
+	UART1Init();
+ 8000ad6:	4b6e      	ldr	r3, [pc, #440]	; (8000c90 <main+0x28c>)
+ 8000ad8:	681b      	ldr	r3, [r3, #0]
+ 8000ada:	4a6d      	ldr	r2, [pc, #436]	; (8000c90 <main+0x28c>)
+ 8000adc:	f443 4380 	orr.w	r3, r3, #16384	; 0x4000
+ 8000ae0:	f043 0305 	orr.w	r3, r3, #5
+ 8000ae4:	6013      	str	r3, [r2, #0]
+ 8000ae6:	4b6b      	ldr	r3, [pc, #428]	; (8000c94 <main+0x290>)
+ 8000ae8:	681b      	ldr	r3, [r3, #0]
+ 8000aea:	4a6a      	ldr	r2, [pc, #424]	; (8000c94 <main+0x290>)
+ 8000aec:	f423 637f 	bic.w	r3, r3, #4080	; 0xff0
+ 8000af0:	6013      	str	r3, [r2, #0]
+ 8000af2:	4b68      	ldr	r3, [pc, #416]	; (8000c94 <main+0x290>)
+ 8000af4:	681b      	ldr	r3, [r3, #0]
+ 8000af6:	4a67      	ldr	r2, [pc, #412]	; (8000c94 <main+0x290>)
+ 8000af8:	f443 6396 	orr.w	r3, r3, #1200	; 0x4b0
+ 8000afc:	6013      	str	r3, [r2, #0]
+ 8000afe:	4b66      	ldr	r3, [pc, #408]	; (8000c98 <main+0x294>)
+ 8000b00:	224e      	movs	r2, #78	; 0x4e
+ 8000b02:	601a      	str	r2, [r3, #0]
+ 8000b04:	4b65      	ldr	r3, [pc, #404]	; (8000c9c <main+0x298>)
+ 8000b06:	f242 020c 	movw	r2, #8204	; 0x200c
+ 8000b0a:	601a      	str	r2, [r3, #0]
+ 8000b0c:	4b64      	ldr	r3, [pc, #400]	; (8000ca0 <main+0x29c>)
+ 8000b0e:	2200      	movs	r2, #0
+ 8000b10:	601a      	str	r2, [r3, #0]
+ 8000b12:	4b64      	ldr	r3, [pc, #400]	; (8000ca4 <main+0x2a0>)
+ 8000b14:	2200      	movs	r2, #0
+ 8000b16:	601a      	str	r2, [r3, #0]
+	USBInit();										//ATTENZIONE USA TIMER 4 !!
+ 8000b18:	4b59      	ldr	r3, [pc, #356]	; (8000c80 <main+0x27c>)
+ 8000b1a:	681b      	ldr	r3, [r3, #0]
+ 8000b1c:	4a58      	ldr	r2, [pc, #352]	; (8000c80 <main+0x27c>)
+ 8000b1e:	f423 0380 	bic.w	r3, r3, #4194304	; 0x400000
+ 8000b22:	6013      	str	r3, [r2, #0]
+ 8000b24:	4b60      	ldr	r3, [pc, #384]	; (8000ca8 <main+0x2a4>)
+ 8000b26:	681b      	ldr	r3, [r3, #0]
+ 8000b28:	4a5f      	ldr	r2, [pc, #380]	; (8000ca8 <main+0x2a4>)
+ 8000b2a:	f443 0300 	orr.w	r3, r3, #8388608	; 0x800000
+ 8000b2e:	6013      	str	r3, [r2, #0]
+ 8000b30:	4b57      	ldr	r3, [pc, #348]	; (8000c90 <main+0x28c>)
+ 8000b32:	681b      	ldr	r3, [r3, #0]
+ 8000b34:	4a56      	ldr	r2, [pc, #344]	; (8000c90 <main+0x28c>)
+ 8000b36:	f043 0305 	orr.w	r3, r3, #5
+ 8000b3a:	6013      	str	r3, [r2, #0]
+ 8000b3c:	4b55      	ldr	r3, [pc, #340]	; (8000c94 <main+0x290>)
+ 8000b3e:	681b      	ldr	r3, [r3, #0]
+ 8000b40:	4a54      	ldr	r2, [pc, #336]	; (8000c94 <main+0x290>)
+ 8000b42:	f423 237f 	bic.w	r3, r3, #1044480	; 0xff000
+ 8000b46:	6013      	str	r3, [r2, #0]
+ 8000b48:	4b52      	ldr	r3, [pc, #328]	; (8000c94 <main+0x290>)
+ 8000b4a:	681b      	ldr	r3, [r3, #0]
+ 8000b4c:	4a51      	ldr	r2, [pc, #324]	; (8000c94 <main+0x290>)
+ 8000b4e:	f443 2388 	orr.w	r3, r3, #278528	; 0x44000
+ 8000b52:	6013      	str	r3, [r2, #0]
+ 8000b54:	4b55      	ldr	r3, [pc, #340]	; (8000cac <main+0x2a8>)
+ 8000b56:	2200      	movs	r2, #0
+ 8000b58:	601a      	str	r2, [r3, #0]
+ 8000b5a:	4b55      	ldr	r3, [pc, #340]	; (8000cb0 <main+0x2ac>)
+ 8000b5c:	2280      	movs	r2, #128	; 0x80
+ 8000b5e:	601a      	str	r2, [r3, #0]
+ 8000b60:	4b54      	ldr	r3, [pc, #336]	; (8000cb4 <main+0x2b0>)
+ 8000b62:	2240      	movs	r2, #64	; 0x40
+ 8000b64:	601a      	str	r2, [r3, #0]
+ 8000b66:	4b54      	ldr	r3, [pc, #336]	; (8000cb8 <main+0x2b4>)
+ 8000b68:	2240      	movs	r2, #64	; 0x40
+ 8000b6a:	601a      	str	r2, [r3, #0]
+ 8000b6c:	4b53      	ldr	r3, [pc, #332]	; (8000cbc <main+0x2b8>)
+ 8000b6e:	f44f 4204 	mov.w	r2, #33792	; 0x8400
+ 8000b72:	601a      	str	r2, [r3, #0]
+ 8000b74:	4b52      	ldr	r3, [pc, #328]	; (8000cc0 <main+0x2bc>)
+ 8000b76:	f44f 7280 	mov.w	r2, #256	; 0x100
+ 8000b7a:	601a      	str	r2, [r3, #0]
+ 8000b7c:	4b51      	ldr	r3, [pc, #324]	; (8000cc4 <main+0x2c0>)
+ 8000b7e:	2240      	movs	r2, #64	; 0x40
+ 8000b80:	601a      	str	r2, [r3, #0]
+ 8000b82:	4b51      	ldr	r3, [pc, #324]	; (8000cc8 <main+0x2c4>)
+ 8000b84:	22c0      	movs	r2, #192	; 0xc0
+ 8000b86:	601a      	str	r2, [r3, #0]
+ 8000b88:	4b50      	ldr	r3, [pc, #320]	; (8000ccc <main+0x2c8>)
+ 8000b8a:	f44f 4204 	mov.w	r2, #33792	; 0x8400
+ 8000b8e:	601a      	str	r2, [r3, #0]
+ 8000b90:	4b4f      	ldr	r3, [pc, #316]	; (8000cd0 <main+0x2cc>)
+ 8000b92:	f44f 72a4 	mov.w	r2, #328	; 0x148
+ 8000b96:	601a      	str	r2, [r3, #0]
+ 8000b98:	4b4e      	ldr	r3, [pc, #312]	; (8000cd4 <main+0x2d0>)
+ 8000b9a:	2208      	movs	r2, #8
+ 8000b9c:	601a      	str	r2, [r3, #0]
+ 8000b9e:	4b4e      	ldr	r3, [pc, #312]	; (8000cd8 <main+0x2d4>)
+ 8000ba0:	f44f 72a0 	mov.w	r2, #320	; 0x140
+ 8000ba4:	601a      	str	r2, [r3, #0]
+ 8000ba6:	4b4d      	ldr	r3, [pc, #308]	; (8000cdc <main+0x2d8>)
+ 8000ba8:	f44f 5280 	mov.w	r2, #4096	; 0x1000
+ 8000bac:	601a      	str	r2, [r3, #0]
+ 8000bae:	4b4c      	ldr	r3, [pc, #304]	; (8000ce0 <main+0x2dc>)
+ 8000bb0:	2203      	movs	r2, #3
+ 8000bb2:	601a      	str	r2, [r3, #0]
+ 8000bb4:	4b4a      	ldr	r3, [pc, #296]	; (8000ce0 <main+0x2dc>)
+ 8000bb6:	2201      	movs	r2, #1
+ 8000bb8:	601a      	str	r2, [r3, #0]
+ 8000bba:	4b3b      	ldr	r3, [pc, #236]	; (8000ca8 <main+0x2a4>)
+ 8000bbc:	681b      	ldr	r3, [r3, #0]
+ 8000bbe:	4a3a      	ldr	r2, [pc, #232]	; (8000ca8 <main+0x2a4>)
+ 8000bc0:	f043 0304 	orr.w	r3, r3, #4
+ 8000bc4:	6013      	str	r3, [r2, #0]
+ 8000bc6:	4b47      	ldr	r3, [pc, #284]	; (8000ce4 <main+0x2e0>)
+ 8000bc8:	2204      	movs	r2, #4
+ 8000bca:	601a      	str	r2, [r3, #0]
+ 8000bcc:	4b46      	ldr	r3, [pc, #280]	; (8000ce8 <main+0x2e4>)
+ 8000bce:	2224      	movs	r2, #36	; 0x24
+ 8000bd0:	601a      	str	r2, [r3, #0]
+ 8000bd2:	4b46      	ldr	r3, [pc, #280]	; (8000cec <main+0x2e8>)
+ 8000bd4:	2200      	movs	r2, #0
+ 8000bd6:	601a      	str	r2, [r3, #0]
+ 8000bd8:	4b45      	ldr	r3, [pc, #276]	; (8000cf0 <main+0x2ec>)
+ 8000bda:	2200      	movs	r2, #0
+ 8000bdc:	601a      	str	r2, [r3, #0]
+ 8000bde:	4b45      	ldr	r3, [pc, #276]	; (8000cf4 <main+0x2f0>)
+ 8000be0:	2200      	movs	r2, #0
+ 8000be2:	601a      	str	r2, [r3, #0]
+ 8000be4:	4b44      	ldr	r3, [pc, #272]	; (8000cf8 <main+0x2f4>)
+ 8000be6:	2200      	movs	r2, #0
+ 8000be8:	601a      	str	r2, [r3, #0]
+ 8000bea:	4b41      	ldr	r3, [pc, #260]	; (8000cf0 <main+0x2ec>)
+ 8000bec:	2201      	movs	r2, #1
+ 8000bee:	601a      	str	r2, [r3, #0]
+ 8000bf0:	bf00      	nop
+ 8000bf2:	4b41      	ldr	r3, [pc, #260]	; (8000cf8 <main+0x2f4>)
+ 8000bf4:	681b      	ldr	r3, [r3, #0]
+ 8000bf6:	f003 0301 	and.w	r3, r3, #1
+ 8000bfa:	2b00      	cmp	r3, #0
+ 8000bfc:	d0f9      	beq.n	8000bf2 <main+0x1ee>
+ 8000bfe:	4b3c      	ldr	r3, [pc, #240]	; (8000cf0 <main+0x2ec>)
+ 8000c00:	2200      	movs	r2, #0
+ 8000c02:	601a      	str	r2, [r3, #0]
+ 8000c04:	4b36      	ldr	r3, [pc, #216]	; (8000ce0 <main+0x2dc>)
+ 8000c06:	2200      	movs	r2, #0
+ 8000c08:	601a      	str	r2, [r3, #0]
+ 8000c0a:	4b3c      	ldr	r3, [pc, #240]	; (8000cfc <main+0x2f8>)
+ 8000c0c:	2200      	movs	r2, #0
+ 8000c0e:	601a      	str	r2, [r3, #0]
+ 8000c10:	4b33      	ldr	r3, [pc, #204]	; (8000ce0 <main+0x2dc>)
+ 8000c12:	f44f 4274 	mov.w	r2, #62464	; 0xf400
+ 8000c16:	601a      	str	r2, [r3, #0]
+ 8000c18:	4b14      	ldr	r3, [pc, #80]	; (8000c6c <main+0x268>)
+ 8000c1a:	f44f 1280 	mov.w	r2, #1048576	; 0x100000
+ 8000c1e:	601a      	str	r2, [r3, #0]
+ 8000c20:	4b37      	ldr	r3, [pc, #220]	; (8000d00 <main+0x2fc>)
+ 8000c22:	2280      	movs	r2, #128	; 0x80
+ 8000c24:	601a      	str	r2, [r3, #0]
+	
+
+
+	while(1)	{
+		
+		USB_MANAGEMENT();
+ 8000c26:	f7ff fc27 	bl	8000478 <USB_MANAGEMENT>
+		if(VCP_Received)	{
+ 8000c2a:	4b36      	ldr	r3, [pc, #216]	; (8000d04 <main+0x300>)
+ 8000c2c:	781b      	ldrb	r3, [r3, #0]
+ 8000c2e:	b2db      	uxtb	r3, r3
+ 8000c30:	2b00      	cmp	r3, #0
+ 8000c32:	d0f8      	beq.n	8000c26 <main+0x222>
+			Read_VCP(BUFF_RX_EP1,&VCP_RX_LEN);	
+ 8000c34:	463a      	mov	r2, r7
+ 8000c36:	f107 0384 	add.w	r3, r7, #132	; 0x84
+ 8000c3a:	4611      	mov	r1, r2
+ 8000c3c:	4618      	mov	r0, r3
+ 8000c3e:	f7ff fddd 	bl	80007fc <Read_EP1>
+			Write_VCP(BUFF_RX_EP1,VCP_RX_LEN);	
+ 8000c42:	463b      	mov	r3, r7
+ 8000c44:	681a      	ldr	r2, [r3, #0]
+ 8000c46:	f107 0384 	add.w	r3, r7, #132	; 0x84
+ 8000c4a:	4611      	mov	r1, r2
+ 8000c4c:	4618      	mov	r0, r3
+ 8000c4e:	f7ff fd71 	bl	8000734 <Send_EP1_Jumbo>
+			SendUART(0xAA);	}
+ 8000c52:	4b2d      	ldr	r3, [pc, #180]	; (8000d08 <main+0x304>)
+ 8000c54:	22aa      	movs	r2, #170	; 0xaa
+ 8000c56:	605a      	str	r2, [r3, #4]
+ 8000c58:	bf00      	nop
+ 8000c5a:	4b2b      	ldr	r3, [pc, #172]	; (8000d08 <main+0x304>)
+ 8000c5c:	681b      	ldr	r3, [r3, #0]
+ 8000c5e:	f003 0380 	and.w	r3, r3, #128	; 0x80
+ 8000c62:	2b00      	cmp	r3, #0
+ 8000c64:	d0f9      	beq.n	8000c5a <main+0x256>
+		USB_MANAGEMENT();
+ 8000c66:	e7de      	b.n	8000c26 <main+0x222>
+ 8000c68:	08000e4c 	.word	0x08000e4c
+ 8000c6c:	e000e100 	.word	0xe000e100
+ 8000c70:	40022000 	.word	0x40022000
+ 8000c74:	40021008 	.word	0x40021008
+ 8000c78:	40021000 	.word	0x40021000
+ 8000c7c:	00010081 	.word	0x00010081
+ 8000c80:	40021004 	.word	0x40021004
+ 8000c84:	001d0400 	.word	0x001d0400
+ 8000c88:	01010081 	.word	0x01010081
+ 8000c8c:	001d0402 	.word	0x001d0402
+ 8000c90:	40021018 	.word	0x40021018
+ 8000c94:	40010804 	.word	0x40010804
+ 8000c98:	40013808 	.word	0x40013808
+ 8000c9c:	4001380c 	.word	0x4001380c
+ 8000ca0:	40013810 	.word	0x40013810
+ 8000ca4:	40013814 	.word	0x40013814
+ 8000ca8:	4002101c 	.word	0x4002101c
+ 8000cac:	40005c50 	.word	0x40005c50
+ 8000cb0:	40006000 	.word	0x40006000
+ 8000cb4:	40006004 	.word	0x40006004
+ 8000cb8:	40006008 	.word	0x40006008
+ 8000cbc:	4000600c 	.word	0x4000600c
+ 8000cc0:	40006010 	.word	0x40006010
+ 8000cc4:	40006014 	.word	0x40006014
+ 8000cc8:	40006018 	.word	0x40006018
+ 8000ccc:	4000601c 	.word	0x4000601c
+ 8000cd0:	40006020 	.word	0x40006020
+ 8000cd4:	40006024 	.word	0x40006024
+ 8000cd8:	40006028 	.word	0x40006028
+ 8000cdc:	4000602c 	.word	0x4000602c
+ 8000ce0:	40005c40 	.word	0x40005c40
+ 8000ce4:	4000082c 	.word	0x4000082c
+ 8000ce8:	40000828 	.word	0x40000828
+ 8000cec:	40000824 	.word	0x40000824
+ 8000cf0:	40000800 	.word	0x40000800
+ 8000cf4:	4000080c 	.word	0x4000080c
+ 8000cf8:	40000810 	.word	0x40000810
+ 8000cfc:	40005c44 	.word	0x40005c44
+ 8000d00:	40005c4c 	.word	0x40005c4c
+ 8000d04:	20000022 	.word	0x20000022
+ 8000d08:	40013800 	.word	0x40013800
+
+08000d0c <NMI_Handler>:
+/******************************************************************************/
+/**
+  * @brief This function handles Non maskable interrupt.
+  */
+void NMI_Handler(void)
+{
+ 8000d0c:	b480      	push	{r7}
+ 8000d0e:	af00      	add	r7, sp, #0
+
+  /* USER CODE END NonMaskableInt_IRQn 0 */
+  /* USER CODE BEGIN NonMaskableInt_IRQn 1 */
+
+  /* USER CODE END NonMaskableInt_IRQn 1 */
+}
+ 8000d10:	bf00      	nop
+ 8000d12:	46bd      	mov	sp, r7
+ 8000d14:	bc80      	pop	{r7}
+ 8000d16:	4770      	bx	lr
+
+08000d18 <HardFault_Handler>:
+
+/**
+  * @brief This function handles Hard fault interrupt.
+  */
+void HardFault_Handler(void)
+{
+ 8000d18:	b480      	push	{r7}
+ 8000d1a:	af00      	add	r7, sp, #0
+  /* USER CODE BEGIN HardFault_IRQn 0 */
+
+  /* USER CODE END HardFault_IRQn 0 */
+  while (1)
+ 8000d1c:	e7fe      	b.n	8000d1c <HardFault_Handler+0x4>
+
+08000d1e <MemManage_Handler>:
+
+/**
+  * @brief This function handles Memory management fault.
+  */
+void MemManage_Handler(void)
+{
+ 8000d1e:	b480      	push	{r7}
+ 8000d20:	af00      	add	r7, sp, #0
+  /* USER CODE BEGIN MemoryManagement_IRQn 0 */
+
+  /* USER CODE END MemoryManagement_IRQn 0 */
+  while (1)
+ 8000d22:	e7fe      	b.n	8000d22 <MemManage_Handler+0x4>
+
+08000d24 <BusFault_Handler>:
+
+/**
+  * @brief This function handles Prefetch fault, memory access fault.
+  */
+void BusFault_Handler(void)
+{
+ 8000d24:	b480      	push	{r7}
+ 8000d26:	af00      	add	r7, sp, #0
+  /* USER CODE BEGIN BusFault_IRQn 0 */
+
+  /* USER CODE END BusFault_IRQn 0 */
+  while (1)
+ 8000d28:	e7fe      	b.n	8000d28 <BusFault_Handler+0x4>
+
+08000d2a <UsageFault_Handler>:
+
+/**
+  * @brief This function handles Undefined instruction or illegal state.
+  */
+void UsageFault_Handler(void)
+{
+ 8000d2a:	b480      	push	{r7}
+ 8000d2c:	af00      	add	r7, sp, #0
+  /* USER CODE BEGIN UsageFault_IRQn 0 */
+
+  /* USER CODE END UsageFault_IRQn 0 */
+  while (1)
+ 8000d2e:	e7fe      	b.n	8000d2e <UsageFault_Handler+0x4>
+
+08000d30 <SVC_Handler>:
+
+/**
+  * @brief This function handles System service call via SWI instruction.
+  */
+void SVC_Handler(void)
+{
+ 8000d30:	b480      	push	{r7}
+ 8000d32:	af00      	add	r7, sp, #0
+
+  /* USER CODE END SVCall_IRQn 0 */
+  /* USER CODE BEGIN SVCall_IRQn 1 */
+
+  /* USER CODE END SVCall_IRQn 1 */
+}
+ 8000d34:	bf00      	nop
+ 8000d36:	46bd      	mov	sp, r7
+ 8000d38:	bc80      	pop	{r7}
+ 8000d3a:	4770      	bx	lr
+
+08000d3c <DebugMon_Handler>:
+
+/**
+  * @brief This function handles Debug monitor.
+  */
+void DebugMon_Handler(void)
+{
+ 8000d3c:	b480      	push	{r7}
+ 8000d3e:	af00      	add	r7, sp, #0
+
+  /* USER CODE END DebugMonitor_IRQn 0 */
+  /* USER CODE BEGIN DebugMonitor_IRQn 1 */
+
+  /* USER CODE END DebugMonitor_IRQn 1 */
+}
+ 8000d40:	bf00      	nop
+ 8000d42:	46bd      	mov	sp, r7
+ 8000d44:	bc80      	pop	{r7}
+ 8000d46:	4770      	bx	lr
+
+08000d48 <PendSV_Handler>:
+
+/**
+  * @brief This function handles Pendable request for system service.
+  */
+void PendSV_Handler(void)
+{
+ 8000d48:	b480      	push	{r7}
+ 8000d4a:	af00      	add	r7, sp, #0
+
+  /* USER CODE END PendSV_IRQn 0 */
+  /* USER CODE BEGIN PendSV_IRQn 1 */
+
+  /* USER CODE END PendSV_IRQn 1 */
+}
+ 8000d4c:	bf00      	nop
+ 8000d4e:	46bd      	mov	sp, r7
+ 8000d50:	bc80      	pop	{r7}
+ 8000d52:	4770      	bx	lr
+
+08000d54 <SysTick_Handler>:
+
+/**
+  * @brief This function handles System tick timer.
+  */
+void SysTick_Handler(void)
+{
+ 8000d54:	b580      	push	{r7, lr}
+ 8000d56:	af00      	add	r7, sp, #0
+  /* USER CODE BEGIN SysTick_IRQn 0 */
+
+  /* USER CODE END SysTick_IRQn 0 */
+  HAL_IncTick();
+ 8000d58:	f000 f82e 	bl	8000db8 <HAL_IncTick>
+  /* USER CODE BEGIN SysTick_IRQn 1 */
+
+  /* USER CODE END SysTick_IRQn 1 */
+}
+ 8000d5c:	bf00      	nop
+ 8000d5e:	bd80      	pop	{r7, pc}
+
+08000d60 <SystemInit>:
+  * @note   This function should be used only after reset.
+  * @param  None
+  * @retval None
+  */
+void SystemInit (void)
+{
+ 8000d60:	b480      	push	{r7}
+ 8000d62:	af00      	add	r7, sp, #0
+
+  /* Configure the Vector Table location -------------------------------------*/
+#if defined(USER_VECT_TAB_ADDRESS)
+  SCB->VTOR = VECT_TAB_BASE_ADDRESS | VECT_TAB_OFFSET; /* Vector Table Relocation in Internal SRAM. */
+#endif /* USER_VECT_TAB_ADDRESS */
+}
+ 8000d64:	bf00      	nop
+ 8000d66:	46bd      	mov	sp, r7
+ 8000d68:	bc80      	pop	{r7}
+ 8000d6a:	4770      	bx	lr
+
+08000d6c <Reset_Handler>:
+  .weak Reset_Handler
+  .type Reset_Handler, %function
+Reset_Handler:
+
+/* Copy the data segment initializers from flash to SRAM */
+  movs r1, #0
+ 8000d6c:	2100      	movs	r1, #0
+  b LoopCopyDataInit
+ 8000d6e:	e003      	b.n	8000d78 <LoopCopyDataInit>
+
+08000d70 <CopyDataInit>:
+
+CopyDataInit:
+  ldr r3, =_sidata
+ 8000d70:	4b0b      	ldr	r3, [pc, #44]	; (8000da0 <LoopFillZerobss+0x14>)
+  ldr r3, [r3, r1]
+ 8000d72:	585b      	ldr	r3, [r3, r1]
+  str r3, [r0, r1]
+ 8000d74:	5043      	str	r3, [r0, r1]
+  adds r1, r1, #4
+ 8000d76:	3104      	adds	r1, #4
+
+08000d78 <LoopCopyDataInit>:
+
+LoopCopyDataInit:
+  ldr r0, =_sdata
+ 8000d78:	480a      	ldr	r0, [pc, #40]	; (8000da4 <LoopFillZerobss+0x18>)
+  ldr r3, =_edata
+ 8000d7a:	4b0b      	ldr	r3, [pc, #44]	; (8000da8 <LoopFillZerobss+0x1c>)
+  adds r2, r0, r1
+ 8000d7c:	1842      	adds	r2, r0, r1
+  cmp r2, r3
+ 8000d7e:	429a      	cmp	r2, r3
+  bcc CopyDataInit
+ 8000d80:	d3f6      	bcc.n	8000d70 <CopyDataInit>
+  ldr r2, =_sbss
+ 8000d82:	4a0a      	ldr	r2, [pc, #40]	; (8000dac <LoopFillZerobss+0x20>)
+  b LoopFillZerobss
+ 8000d84:	e002      	b.n	8000d8c <LoopFillZerobss>
+
+08000d86 <FillZerobss>:
+/* Zero fill the bss segment. */
+FillZerobss:
+  movs r3, #0
+ 8000d86:	2300      	movs	r3, #0
+  str r3, [r2], #4
+ 8000d88:	f842 3b04 	str.w	r3, [r2], #4
+
+08000d8c <LoopFillZerobss>:
+
+LoopFillZerobss:
+  ldr r3, = _ebss
+ 8000d8c:	4b08      	ldr	r3, [pc, #32]	; (8000db0 <LoopFillZerobss+0x24>)
+  cmp r2, r3
+ 8000d8e:	429a      	cmp	r2, r3
+  bcc FillZerobss
+ 8000d90:	d3f9      	bcc.n	8000d86 <FillZerobss>
+
+/* Call the clock system intitialization function.*/
+    bl  SystemInit
+ 8000d92:	f7ff ffe5 	bl	8000d60 <SystemInit>
+/* Call static constructors */
+    bl __libc_init_array
+ 8000d96:	f000 f821 	bl	8000ddc <__libc_init_array>
+/* Call the application's entry point.*/
+  bl main
+ 8000d9a:	f7ff fe33 	bl	8000a04 <main>
+  bx lr
+ 8000d9e:	4770      	bx	lr
+  ldr r3, =_sidata
+ 8000da0:	08000f2c 	.word	0x08000f2c
+  ldr r0, =_sdata
+ 8000da4:	20000000 	.word	0x20000000
+  ldr r3, =_edata
+ 8000da8:	20000004 	.word	0x20000004
+  ldr r2, =_sbss
+ 8000dac:	20000004 	.word	0x20000004
+  ldr r3, = _ebss
+ 8000db0:	20000048 	.word	0x20000048
+
+08000db4 <ADC1_2_IRQHandler>:
+ * @retval : None
+*/
+    .section .text.Default_Handler,"ax",%progbits
+Default_Handler:
+Infinite_Loop:
+  b Infinite_Loop
+ 8000db4:	e7fe      	b.n	8000db4 <ADC1_2_IRQHandler>
+	...
+
+08000db8 <HAL_IncTick>:
+  * @note This function is declared as __weak to be overwritten in case of other
+  *      implementations in user file.
+  * @retval None
+  */
+__weak void HAL_IncTick(void)
+{
+ 8000db8:	b480      	push	{r7}
+ 8000dba:	af00      	add	r7, sp, #0
+  uwTick += uwTickFreq;
+ 8000dbc:	4b05      	ldr	r3, [pc, #20]	; (8000dd4 <HAL_IncTick+0x1c>)
+ 8000dbe:	781b      	ldrb	r3, [r3, #0]
+ 8000dc0:	461a      	mov	r2, r3
+ 8000dc2:	4b05      	ldr	r3, [pc, #20]	; (8000dd8 <HAL_IncTick+0x20>)
+ 8000dc4:	681b      	ldr	r3, [r3, #0]
+ 8000dc6:	4413      	add	r3, r2
+ 8000dc8:	4a03      	ldr	r2, [pc, #12]	; (8000dd8 <HAL_IncTick+0x20>)
+ 8000dca:	6013      	str	r3, [r2, #0]
+}
+ 8000dcc:	bf00      	nop
+ 8000dce:	46bd      	mov	sp, r7
+ 8000dd0:	bc80      	pop	{r7}
+ 8000dd2:	4770      	bx	lr
+ 8000dd4:	20000000 	.word	0x20000000
+ 8000dd8:	20000044 	.word	0x20000044
+
+08000ddc <__libc_init_array>:
+ 8000ddc:	b570      	push	{r4, r5, r6, lr}
+ 8000dde:	2500      	movs	r5, #0
+ 8000de0:	4e0c      	ldr	r6, [pc, #48]	; (8000e14 <__libc_init_array+0x38>)
+ 8000de2:	4c0d      	ldr	r4, [pc, #52]	; (8000e18 <__libc_init_array+0x3c>)
+ 8000de4:	1ba4      	subs	r4, r4, r6
+ 8000de6:	10a4      	asrs	r4, r4, #2
+ 8000de8:	42a5      	cmp	r5, r4
+ 8000dea:	d109      	bne.n	8000e00 <__libc_init_array+0x24>
+ 8000dec:	f000 f822 	bl	8000e34 <_init>
+ 8000df0:	2500      	movs	r5, #0
+ 8000df2:	4e0a      	ldr	r6, [pc, #40]	; (8000e1c <__libc_init_array+0x40>)
+ 8000df4:	4c0a      	ldr	r4, [pc, #40]	; (8000e20 <__libc_init_array+0x44>)
+ 8000df6:	1ba4      	subs	r4, r4, r6
+ 8000df8:	10a4      	asrs	r4, r4, #2
+ 8000dfa:	42a5      	cmp	r5, r4
+ 8000dfc:	d105      	bne.n	8000e0a <__libc_init_array+0x2e>
+ 8000dfe:	bd70      	pop	{r4, r5, r6, pc}
+ 8000e00:	f856 3025 	ldr.w	r3, [r6, r5, lsl #2]
+ 8000e04:	4798      	blx	r3
+ 8000e06:	3501      	adds	r5, #1
+ 8000e08:	e7ee      	b.n	8000de8 <__libc_init_array+0xc>
+ 8000e0a:	f856 3025 	ldr.w	r3, [r6, r5, lsl #2]
+ 8000e0e:	4798      	blx	r3
+ 8000e10:	3501      	adds	r5, #1
+ 8000e12:	e7f2      	b.n	8000dfa <__libc_init_array+0x1e>
+ 8000e14:	08000f24 	.word	0x08000f24
+ 8000e18:	08000f24 	.word	0x08000f24
+ 8000e1c:	08000f24 	.word	0x08000f24
+ 8000e20:	08000f28 	.word	0x08000f28
+
+08000e24 <memset>:
+ 8000e24:	4603      	mov	r3, r0
+ 8000e26:	4402      	add	r2, r0
+ 8000e28:	4293      	cmp	r3, r2
+ 8000e2a:	d100      	bne.n	8000e2e <memset+0xa>
+ 8000e2c:	4770      	bx	lr
+ 8000e2e:	f803 1b01 	strb.w	r1, [r3], #1
+ 8000e32:	e7f9      	b.n	8000e28 <memset+0x4>
+
+08000e34 <_init>:
+ 8000e34:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+ 8000e36:	bf00      	nop
+ 8000e38:	bcf8      	pop	{r3, r4, r5, r6, r7}
+ 8000e3a:	bc08      	pop	{r3}
+ 8000e3c:	469e      	mov	lr, r3
+ 8000e3e:	4770      	bx	lr
+
+08000e40 <_fini>:
+ 8000e40:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+ 8000e42:	bf00      	nop
+ 8000e44:	bcf8      	pop	{r3, r4, r5, r6, r7}
+ 8000e46:	bc08      	pop	{r3}
+ 8000e48:	469e      	mov	lr, r3
+ 8000e4a:	4770      	bx	lr
