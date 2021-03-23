@@ -47,19 +47,26 @@ The library was compiled an tested for STM32F103RB and STM32F103C8 (Blue Pill).
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //USER FUNCTIONS.
 
-USBInit();											//USB clock, GPIO, PMA, transceiver and interrupts initialization.	
+//USB clock, GPIO, PMA, transceiver and interrupts initialization.	
+USBInit();											
 
-USB_MANAGEMENT();									//Manage control tranfers on endpoint 0.
+//Manage control tranfers on endpoint 0.
+USB_MANAGEMENT();									
 
-Write_VCP(uint8_t* data, uint32_t len);				//Send a packet, of size "len" that contain the data stored in the "data" array, on the virtual serial port.
+//Send a packet, of size "len" that contain the data stored in the "data" array, on the virtual serial port.
+Write_VCP(uint8_t* data, uint32_t len);				
 
-VCP_Transmitted										//Variable set to 1 when a packet has been completely transmitted on the virtual serial port.	
+//Variable set to 1 when a packet has been completely transmitted on the virtual serial port.	
+VCP_Transmitted										
 
-Wait_VCP_TX();										//Wait until a packet has been completely transmitted on the virtual serial port. It's not always necessary to call this function after sending some data, but you have to wait until the variable "VCP_Transmitted" goes to 1 before sending new data, otherwise you will overwrite the old data.
+//Wait until a packet has been completely transmitted on the virtual serial port. It's not always necessary to call this function after sending some data, but you have to wait until the variable "VCP_Transmitted" goes to 1 before sending new data, otherwise you will overwrite the old data.
+Wait_VCP_TX();										
 
-Read_VCP(uint8_t* Received_data, uint32_t* len);	//Read a packet received from the virtual serial port and enable the port to receive a new packet. The packet will be copied in the "Received_Data" array, and the leght of the packet will be written in the variable pointed by "len".
+//Read a packet received from the virtual serial port and enable the port to receive a new packet. The packet will be copied in the "Received_Data" array, and the leght of the packet will be written in the variable pointed by "len".
+Read_VCP(uint8_t* Received_data, uint32_t* len);	
 
-VCP_Received										//Variable set to 1 when a packet is received from the virtual serial port.
+//Variable set to 1 when a packet is received from the virtual serial port.
+VCP_Received										
 
 
 
@@ -115,14 +122,23 @@ https://www.st.com/en/development-tools/stsw-stm32102.html
 //HOW TO USE THE SERIAL PORT WITH YAT.
 
 1.Once compiled and uploaded you firmware to your STM32, connect it to the PC and check in "device manager" which COM port has been assigned to the device.
+
 2.Open YAT.
+
 3.Click Terminal -> Settings
+
 4.Serial Port: insert the correct COM port.
+
 5.Leave "Bits per second", "Data bits", "Parity" and "Stop Bits" as they are, because they are useless since this is a virtual serial port.
+
 6.Flow Control: None.
+
 7.Click Ok.
+
 8.Click Terminal -> Open/Start.
+
 9.Now you can send and receive your data.
+
 10. If you have uploaded the example code you will receive the same data that you have sent.
 
 
@@ -132,8 +148,11 @@ https://www.st.com/en/development-tools/stsw-stm32102.html
 //HOW IT WORKS.
 
 My library uses 3 endpoints.
+
 EP0 for control transfers. 64 byte size.
+
 EP1 for sending and receiving data through the virtual serial port. 64 byte size.
+
 EP2 for the Protocol AT V.250 (actually not used).	8 byte size.
 
 When an USB event happens a flag is set in interrupt routine and the USB_MANAGEMENT(), or an user function, will handle the event in main.
