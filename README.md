@@ -47,25 +47,26 @@ The library was compiled an tested for STM32F103RB and STM32F103C8 (Blue Pill).
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //USER FUNCTIONS.
 
-//USB clock, GPIO, PMA, transceiver and interrupts initialization.	
+//USB clock, GPIO, PMA, transceiver and interrupts initialization.  
 USBInit();											
 
-//Manage control tranfers on endpoint 0.
+//Manage control tranfers on endpoint 0.  
 USB_MANAGEMENT();									
 
-//Send a packet, of size "len" that contain the data stored in the "data" array, on the virtual serial port.
+//Send a packet, of size "len" that contain the data stored in the "data" array, on the virtual serial port.  
 Write_VCP(uint8_t* data, uint32_t len);				
 
-//Variable set to 1 when a packet has been completely transmitted on the virtual serial port.	
+//Variable set to 1 when a packet has been completely transmitted on the virtual serial port.  
 VCP_Transmitted										
 
-//Wait until a packet has been completely transmitted on the virtual serial port. It's not always necessary to call this function after sending some data, but you have to wait until the variable "VCP_Transmitted" goes to 1 before sending new data, otherwise you will overwrite the old data.
+//Wait until a packet has been completely transmitted on the virtual serial port. It's not always necessary to call this function after sending some data, but you have to wait until the variable "VCP_Transmitted" goes to 1 before sending new data, otherwise you will overwrite the old data.  
+
 Wait_VCP_TX();										
 
-//Read a packet received from the virtual serial port and enable the port to receive a new packet. The packet will be copied in the "Received_Data" array, and the leght of the packet will be written in the variable pointed by "len".
+//Read a packet received from the virtual serial port and enable the port to receive a new packet. The packet will be copied in the "Received_Data" array, and the leght of the packet will be written in the variable pointed by "len".  
 Read_VCP(uint8_t* Received_data, uint32_t* len);	
 
-//Variable set to 1 when a packet is received from the virtual serial port.
+//Variable set to 1 when a packet is received from the virtual serial port.  
 VCP_Received										
 
 
