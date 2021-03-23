@@ -73,10 +73,15 @@ You can find an example on how to use the library in the "Example" folder. The e
 Usually your main.c should be like this:
 
 #include "USB-VCP.h"
+
 ...
+
 int main(void)	{
+
 ...
+
 USBInit();
+
 ...	
 	
 	while(1) {
@@ -96,6 +101,7 @@ USBInit();
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //PC DRIVERS.
+
 On Windows 10 you don't need to install any driver, because they are alreay installed by default, the same happens on linux (Tested UBUNTU 18.04).
 For Windows 98SE, 2000, XP, Vista®, 7, and 8.x you can download drivers from here:
 https://www.st.com/en/development-tools/stsw-stm32102.html
@@ -107,6 +113,7 @@ https://www.st.com/en/development-tools/stsw-stm32102.html
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //HOW TO USE THE SERIAL PORT WITH YAT.
+
 1.Once compiled and uploaded you firmware to your STM32, connect it to the PC and check in "device manager" which COM port has been assigned to the device.
 2.Open YAT.
 3.Click Terminal -> Settings
@@ -123,6 +130,7 @@ https://www.st.com/en/development-tools/stsw-stm32102.html
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //HOW IT WORKS.
+
 My library uses 3 endpoints.
 EP0 for control transfers. 64 byte size.
 EP1 for sending and receiving data through the virtual serial port. 64 byte size.
@@ -142,9 +150,13 @@ All the Descriptors are defined in "USB-VCP.c" and they are sent to the host, wh
 If you want to know more about the USB protocol here there are some documents that can be useful:
 
 usb_20.pdf
+
 CDC120-20101103-track.pdf
+
 PSTN120.pdf
+
 STM32_Reference_Manual.pdf
+
 https://www.usbmadesimple.co.uk/ums_1.htm
 https://www.beyondlogic.org/usbnutshell/usb1.shtml
 https://bits4device.wordpress.com/2011/10/14/usb-protocol-device-framework/
@@ -159,6 +171,7 @@ https://www.perytech.com/USB-Enumeration.htm
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //ABOUT ME.
+
 I'm Davide Demo, an electronic engeneer.
 I spend my free time studying about electronic, i have always wanted to learn how USB works and developing this library was the occasion to do that.
 
