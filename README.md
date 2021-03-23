@@ -86,6 +86,8 @@ You can find an example on how to use the library in the "Example" folder. The e
 
 Usually your main.c should be like this:
 
+
+```
 #include "USB-VCP.h"
 
 ...
@@ -108,6 +110,7 @@ USBInit();
 		}
 	}
 }
+```
 
 
 
