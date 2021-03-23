@@ -28,13 +28,21 @@ The library was compiled an tested for STM32F103RB and STM32F103C8 (Blue Pill).
 
 ## HOW TO USE THE LIBRARY WITH STM32CubeIde
 1. Create a new projet for your STM32 MCU (you don't need to enable anything about the USB peripheral, my library will do everything).
+
 2. Set SYSTEM CLOCK = 72Mhz. AHB CLOCK = 72Mhz. APB1 CLOCK = 36Mhz. APB2 CLOCK = 72Mhz. USB CLOCK = 48Mhz. (Alternatively use my function "ClockInit()" in the example code, you will find it's definition in "RCC_CLOCK.h", in folder Core/Inc).  
+
 3. Copy "USB-VCP.h" to <projet folder>/Core/Inc.
+
 4. Copy "USB-VCP.c" to <projet folder>/Core/Src.
+
 5. #include "USB-VCP.h" in your "main.c" file.
+
 6. Call the "USBInit();" function at the begginning of your main.
+
 7. Call the "USB_MANAGEMENT();" function inside your while(1) loop in main.
+
 8. Use the USER Functions to receive and transmit data on the Virtual Serial Port.
+
 9. Compile.
 
 
@@ -43,7 +51,7 @@ The library was compiled an tested for STM32F103RB and STM32F103C8 (Blue Pill).
 
 ## USER FUNCTIONS
 
-//USB clock, GPIO, PMA, transceiver and interrupts initialization.  
+//USB clock, GPIO, PMA, transceiver and interrupts initialization. ATTENTION: The initialization uses Timer 4, once the initialization is terminated the Timer4 is left free, so if you have to initializate the Timer4 do it after calling the USBInit().
 ```
 USBInit();											
 ```

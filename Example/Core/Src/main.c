@@ -3,7 +3,6 @@
 
 #include "main.h"
 #include "RCC_CLOCK.h"
-#include "UART1.h"
 #include "USB-VCP.h"
 
 int main(void)
