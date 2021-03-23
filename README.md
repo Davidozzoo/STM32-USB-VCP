@@ -4,9 +4,9 @@ STM32F103XX USB Device and Virtual Serial Port (VCP) library.
 ## DESCRIPTION
 
 Welcome to my STM32F103XX USB Device and Virtual Serial Port (VCP) library.
-This library allows to connect an STM32F103XX to a PC through USB, be recognised as an USB Virtual Serial Port and
+This library allows to connect an STM32F103XX to a PC, through USB, be recognised as an USB Virtual Serial Port and
 communicate as if it were a standard serial COM port.
-The communication with the serial port can be handled with YAT, PuTTY, Arduino Serial Monitor and others serial terminals.
+The communication with the serial port can be handled with YAT, PuTTY, Arduino Serial Monitor and other serial terminals.
 
 This library initialize and manage completely the USB peripheral, USB control transfers and packets exchange.
 
@@ -28,7 +28,7 @@ The library was compiled and tested for STM32F103RB and STM32F103C8 (Blue Pill).
 
 ## HOW TO USE THE LIBRARY WITH STM32CubeIde
 
-1. Create a new projet for your STM32 MCU (you don't need to enable anything about the USB peripheral, my library will do everything).
+1. Create a new project for your STM32 MCU (you don't need to enable anything about the USB peripheral, the library will do everything).
 
 2. Set SYSTEM CLOCK = 72Mhz. AHB CLOCK = 72Mhz. APB1 CLOCK = 36Mhz. APB2 CLOCK = 72Mhz. USB CLOCK = 48Mhz. (Alternatively use my function "ClockInit()" in the example code, you will find it's definition in "RCC_CLOCK.h", in folder Core/Inc).  
 
@@ -52,7 +52,8 @@ The library was compiled and tested for STM32F103RB and STM32F103C8 (Blue Pill).
 
 ## USER FUNCTIONS
 
-//USB clock, GPIO, PMA, transceiver and interrupts initialization. ATTENTION: The initialization uses Timer 4, once the initialization is terminated the Timer4 is left free, so if you have to initializate the Timer4 do it after calling the USBInit().
+//USB clock, GPIO, PMA, transceiver and interrupts initialization.  
+ATTENTION: The initialization uses Timer 4, once the initialization is terminated the Timer 4 is left free, so if you have to initializate the Timer 4 do it after calling the USBInit().
 ```
 USBInit();											
 ```
@@ -72,7 +73,8 @@ Write_VCP(uint8_t* data, uint32_t len);
 VCP_Transmitted										
 ```
 
-//Wait until a packet has been completely transmitted on the virtual serial port. It's not always necessary to call this function after sending some data, but you have to wait until the variable "VCP_Transmitted" goes to 1 before sending new data, otherwise you will overwrite the old data.  
+//Wait until a packet has been completely transmitted on the virtual serial port.  
+It's not always necessary to call this function after sending some data, but you have to wait until the variable "VCP_Transmitted" goes to 1 before sending new data, otherwise you will overwrite the old data.  
 ```
 Wait_VCP_TX();										
 ```
