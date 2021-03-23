@@ -1,7 +1,7 @@
 # STM32-USB-VCP
 STM32F103XX USB Device and Virtual Serial Port (VCP) library.
 
-## DESCRIPTION.
+## DESCRIPTION
 
 Welcome to my STM32F103XX USB Device and Virtual Serial Port (VCP) library.
 This library allows to connect an STM32F103XX to a PC through USB, be recognised as an USB Virtual Serial Port and
@@ -15,7 +15,7 @@ I designed the library to be light, independet and easy to use as much as possib
 
 
 
-## COMPILATION.
+## COMPILATION
 
 I compiled the library with STM32CubeIde 1.3.0, but it could be compiled with Arduino or gcc-arm-none-eabi stand alone because it doesn't have any
 particular dependence.
@@ -26,7 +26,7 @@ The library was compiled an tested for STM32F103RB and STM32F103C8 (Blue Pill).
 
 
 
-## HOW TO USE THE LIBRARY WITH STM32CubeIde.
+## HOW TO USE THE LIBRARY WITH STM32CubeIde
 1. Create a new projet for your STM32 MCU (you don't need to enable anything about the USB peripheral, my library will do everything).
 2. Set SYSTEM CLOCK = 72Mhz. AHB CLOCK = 72Mhz. APB1 CLOCK = 36Mhz. APB2 CLOCK = 72Mhz. USB CLOCK = 48Mhz. (Alternatively use my function "ClockInit()" in the example code, you will find it's definition in "RCC_CLOCK.h", in folder Core/Inc).  
 3. Copy "USB-VCP.h" to <projet folder>/Core/Inc.
@@ -41,7 +41,7 @@ The library was compiled an tested for STM32F103RB and STM32F103C8 (Blue Pill).
 
 
 
-## USER FUNCTIONS.
+## USER FUNCTIONS
 
 //USB clock, GPIO, PMA, transceiver and interrupts initialization.  
 ```
@@ -81,7 +81,7 @@ VCP_Received
 
 
 
-## EXAMPLE.
+## EXAMPLE
 
 You can find an example on how to use the library in the "Example" folder. The example was compiled for STM32F103C8 (blue pill).
 
@@ -117,7 +117,7 @@ USBInit();
 
 
 
-## PC DRIVERS.
+## PC DRIVERS
 
 On Windows 10 you don't need to install any driver, because they are alreay installed by default, the same happens on linux (Tested UBUNTU 18.04).
 For Windows 98SE, 2000, XP, Vista®, 7, and 8.x you can download drivers from here:
@@ -128,7 +128,7 @@ https://www.st.com/en/development-tools/stsw-stm32102.html
 
 
 
-## HOW TO USE THE SERIAL PORT WITH YAT.
+## HOW TO USE THE SERIAL PORT WITH YAT
 
 1.Once compiled and uploaded you firmware to your STM32, connect it to the PC and check in "device manager" which COM port has been assigned to the device.
 
@@ -153,7 +153,7 @@ https://www.st.com/en/development-tools/stsw-stm32102.html
 
 
 
-## HOW IT WORKS.
+## HOW IT WORKS
 
 My library uses 3 endpoints.
 
@@ -171,7 +171,7 @@ All the Descriptors are defined in "USB-VCP.c" and they are sent to the host, wh
 
 
 
-## MORE INFORMATIONS ABOUT THE USB PROTOCOL.
+## MORE INFORMATIONS ABOUT THE USB PROTOCOL
 
 If you want to know more about the USB protocol here there are some documents that can be useful:
 
@@ -195,7 +195,7 @@ https://www.perytech.com/USB-Enumeration.htm
 
 
 
-## ABOUT ME.
+## ABOUT ME
 
 I'm Davide Demo, an electronic engeneer.
 I spend my free time studying about electronic, i have always wanted to learn how USB works and developing this library was the occasion to do that.
