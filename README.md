@@ -60,7 +60,7 @@ ATTENTION: The initialization uses Timer 4, once the initialization is terminate
 Manage control tranfers on endpoint 0.  
 
 #### Write_VCP(uint8_t* data, uint32_t len);
-Send a packet of size "len", that contain the data stored in the "data" array, on the virtual serial port.  
+Send a packet of size "len", that contains the data stored in the "data" array, on the virtual serial port.  
 
 #### VCP_Transmitted
 Variable set to 1 when a packet has been completely transmitted on the virtual serial port.  
@@ -129,7 +129,7 @@ https://www.st.com/en/development-tools/stsw-stm32102.html
 
 1.Download YAT https://sourceforge.net/projects/y-a-terminal/
 
-2.Once compiled and uploaded you firmware to your STM32, connect it to the PC and check in "device manager" which COM port has been assigned to the device.
+2.Once compiled and uploaded your firmware to the STM32, connect it to the PC and check in "device manager" which COM port has been assigned to the device.
 
 3.Open YAT.
 
