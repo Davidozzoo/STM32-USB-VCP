@@ -1,0 +1,82 @@
+USB Memory
+
+Allocation Table
+
+0x40006000	xxxx xxxx ADDR0_TX 
+0x40006004	xxxx xxxx COUNT0_TX 
+0x40006008	xxxx xxxx ADDR0_RX 
+0x4000600C	xxxx xxxx COUNT0_TX 
+
+0x40006010	xxxx xxxx ADDR1_TX 
+0x40006014	xxxx xxxx COUNT1_TX 
+0x40006018	xxxx xxxx ADDR1_RX 
+0x4000601C	xxxx xxxx COUNT1_TX 
+
+0x40006020	xxxx xxxx ADDR2_TX 
+0x40006024	xxxx xxxx COUNT2_TX 
+0x40006028	xxxx xxxx ADDR2_RX 
+0x4000602C	xxxx xxxx COUNT2_TX 
+
+0x40006030	xxxx xxxx ADDR3_TX 
+0x40006034	xxxx xxxx COUNT3_TX 
+0x40006038	xxxx xxxx ADDR3_RX 
+0x4000603C	xxxx xxxx COUNT3_TX 
+
+0x40006040	xxxx xxxx ADDR4_TX 
+0x40006044	xxxx xxxx COUNT4_TX 
+0x40006048	xxxx xxxx ADDR4_RX 
+0x4000604C	xxxx xxxx COUNT4_TX 
+
+0x40006050	xxxx xxxx ADDR5_TX 
+0x40006054	xxxx xxxx COUNT5_TX 
+0x40006058	xxxx xxxx ADDR5_RX 
+0x4000605C	xxxx xxxx COUNT5_TX 
+
+0x40006060	xxxx xxxx ADDR6_TX 
+0x40006064	xxxx xxxx COUNT6_TX 
+0x40006068	xxxx xxxx ADDR6_RX 
+0x4000606C	xxxx xxxx COUNT6_TX 
+
+0x40006070	xxxx xxxx ADDR7_TX 
+0x40006074	xxxx xxxx COUNT7_TX 
+0x40006078	xxxx xxxx ADDR7_RX 
+0x4000607C	xxxx xxxx COUNT7_TX 
+
+0x40006080	xxxx xxxx DATA AREA
+...
+0x400063FC	xxxx xxxx DATA AREA
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+DATA AREA
+
+RAM ADDRESS | DATA	(32 bit)		|	PMA ADDRESS | DATA (16 bit)
+0x40006080	xxxx xxxx DATA_RX_0 	|	0x0040		DATA_RX_0 
+...                             	|   ...         
+0x400060FC	xxxx xxxx DATA_RX_0 	|  	0x007E		DATA_RX_0 
+									|  		
+0x40006100	xxxx xxxx DATA_TX_0 	|  	0x0080		DATA_TX_0 
+...                             	|   ...         
+0x4000617C	xxxx xxxx DATA_TX_0 	|  	0x00BE		DATA_TX_0 
+									|  		
+									|  		
+0x40006180	xxxx xxxx DATA_RX_1 	|  	0x00C0		DATA_RX_1 
+...                             	|   ...         
+0x400061FC	xxxx xxxx DATA_RX_1 	| 	0x00FE		DATA_RX_1 
+									|  		
+0x40006200	xxxx xxxx DATA_TX_1 	|  	0x0100		DATA_TX_1 
+...                             	|   ...         
+0x4000627C	xxxx xxxx DATA_TX_1 	|  	0x013E		DATA_TX_1 
+									|  		
+									|  		
+0x40006280	xxxx xxxx DATA_RX_2 	|  	0x0140		DATA_RX_2 
+...                             	|   ...         
+0x4000628C	xxxx xxxx DATA_RX_2 	|  	0x0146		DATA_RX_2 
+									|  		
+0x40006290	xxxx xxxx DATA_TX_2 	|  	0x0148		DATA_TX_2 
+...                             	|   ...         
+0x4000629C	xxxx xxxx DATA_TX_2 	|  	0x014E		DATA_TX_2 
+									|  		
+0x400062A0	xxxx xxxx DATA_RX_3 	|  	0x0150		DATA_TX_3 
+...                             	|   ...         
+
+ 
