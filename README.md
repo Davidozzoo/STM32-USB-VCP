@@ -54,7 +54,6 @@ The library was compiled and tested for STM32F103RB and STM32F103C8 (Blue Pill).
 
 #### USBInit();
 USB clock, GPIO, PMA, transceiver and interrupts initialization.  
-ATTENTION: The initialization uses Timer 4, once the initialization is terminated the Timer 4 is left free, so if you have to initializate the Timer 4 do it after calling the USBInit() function.
 
 #### USB_MANAGEMENT();
 Manage control tranfers on endpoint 0.  

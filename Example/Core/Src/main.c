@@ -1,5 +1,5 @@
 //USB-VCP example.
-//This firmware read the data received from the USB-VCP and send them back through the USB-VCP.
+//This firmware reads data received from USB-VCP and sends it back through the USB-VCP.
 
 #include "main.h"
 #include "RCC_CLOCK.h"
@@ -15,7 +15,7 @@ int main(void)
 	NVIC->ICER[0] = 0xFFFFFFFF;						//Turn off all interrupts.	
 
 	ClockInit();									//SYSTEM CLOCK = 72Mhz. AHB CLOCK = 72Mhz. APB1 CLOCK = 36Mhz. APB2 CLOCK = 72Mhz. USB CLOCK = 48Mhz.  
-	USBInit();										//ATTENTION: USES TIMER 4 !!
+	USBInit();
 	
 	for(ii=0;ii<5;ii++) {BUFF_TX_VCP[ii]=ii+1;}
 

@@ -17,26 +17,6 @@
 #define RCC_CFGR_USB 	(*(volatile uint32_t*)(0x40021004))
 #define GPIOA_CRH_USB	(*(volatile uint32_t*)(0x40010804))
 
-
-#define TIM4_CR1_USB 	(*(volatile uint32_t*)(0x40000800))
-#define TIM4_CR2_USB 	(*(volatile uint32_t*)(0x40000804))
-#define TIM4_SMCR_USB 	(*(volatile uint32_t*)(0x40000808))
-#define TIM4_DIER_USB 	(*(volatile uint32_t*)(0x4000080C))
-#define TIM4_SR_USB 	(*(volatile uint32_t*)(0x40000810))
-#define TIM4_CCMR1_USB 	(*(volatile uint32_t*)(0x40000814))
-#define TIM4_CCMR2_USB 	(*(volatile uint32_t*)(0x4000081C))
-#define TIM4_CCER_USB 	(*(volatile uint32_t*)(0x40000820))
-#define TIM4_CNT_USB 	(*(volatile uint32_t*)(0x40000824))
-#define TIM4_PSC_USB 	(*(volatile uint32_t*)(0x40000828))
-#define TIM4_ARR_USB 	(*(volatile uint32_t*)(0x4000082C))
-#define TIM4_CCR1_USB 	(*(volatile uint32_t*)(0x40000834))
-#define TIM4_CCR2_USB 	(*(volatile uint32_t*)(0x40000838))
-#define TIM4_CCR3_USB 	(*(volatile uint32_t*)(0x4000083C))
-#define TIM4_CCR4_USB 	(*(volatile uint32_t*)(0x40000840))
-#define TIM4_DCR_USB 	(*(volatile uint32_t*)(0x40000848))
-#define TIM4_DMAR_USB 	(*(volatile uint32_t*)(0x4000084C))
-
-
 #define USB_ADDR0_TX 	(*(volatile uint32_t*)(0x40006000))
 #define USB_COUNT0_TX 	(*(volatile uint32_t*)(0x40006004))
 #define USB_ADDR0_RX 	(*(volatile uint32_t*)(0x40006008))
@@ -89,6 +69,7 @@ extern  uint16_t 		Control_Line_State[2];
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Global variables definitions.
 
+extern volatile uint32_t 	wait;							//Variable used to wait Tsetup = 2.5 us.
 extern volatile uint8_t 	USB_RECEIVED_EP0;				//Variable set to 1 when a packet has been received on endpoint 0.
 extern volatile uint8_t 	USB_TRANSMITTED_EP0;			//Variable set to 1 when a packet has been transmitted on endpoint 0.
 extern volatile uint8_t 	USB_RECEIVED_EP1;				//Variable set to 1 when a packet has been received on endpoint 1.
@@ -145,16 +126,6 @@ void Manage_EP1_Jumbo();									//Function used to send the remaining subpacket
 #define 	VCP_Transmitted						!N_JUMBO_SUBPACKETS				//Variable set to 1 when a packet has been transmitted on the virtual serial port.	
 #define		Wait_VCP_TX()						while(!(VCP_Transmitted))		//Wait until a packet has been completely transmitted on the virtual serial port.
 
-//Setup Timer 4. Used to wait USB T_Setup = 2.5us.		
-#define		TIM4USBInit()	{	RCC_APB1ENR_USB |= 0x00000004;					/*TURN ON TIM4 CLOCK*/																					\
-								TIM4_ARR_USB 	 = 4;							/*Timer Period = 4*/																					\
-								TIM4_PSC_USB 	 = 36;							/*Timer Prescaler = 36*/																				\
-								TIM4_CNT_USB	 = 0x0000;						/*TIM4 Counter 0.*/																						\
-								TIM4_CR1_USB	 = 0x0000;						/*TIM4 OFF.*/																							\
-								TIM4_DIER_USB	 = 0x00000000;					/*DMA OFF. Interrupt OFF.*/																				\
-								TIM4_SR_USB		 = 0x00000000;	}				/*Clear Interrupt flags.*/																		
-							
-
 
 //USB clock, GPIO, PMA, transceiver and interrupts initialization. 
 #define		USBInit()		{	RCC_CFGR_USB	&=0xFFBFFFFF; 					/*USB CLOCK PRESCALER = 1.5*/																			\
@@ -177,10 +148,7 @@ void Manage_EP1_Jumbo();									//Function used to send the remaining subpacket
 								USB_COUNT2_RX = 0x1000;							/*Endpoint 2 recetpion buffer block size = 2 byte, number of blocks = 4. Total dimension 8 byte.*/		\
 								USB_CNTR	  = 0x0003;							/*USB Interrupt OFF. USB Transceiver OFF. RESET ON.*/                                           		\
 								USB_CNTR	  = 0x0001;							/*USB Interrupt OFF. USB Transceiver ON. RESET ON*/                                             		\
-								TIM4USBInit();									/*Initialize Timer 4*/																					\
-								TIM4_CR1_USB  = 0x0001;							/*TIM4 ON.*/                                                                                    		\
-								while(!(TIM4_SR_USB & 0x0001))	{}				/*Wait T_Setup. (2.5us).*/                                                                   			\
-								TIM4_CR1_USB  = 0x0000;							/*TIM4 OFF.*/                                                                                   		\
+								for(wait=0;wait<30;wait++) {}					/*Wait Tsetup = 2.5 us.*/																					\
 								USB_CNTR	  = 0x0000;							/*USB Interrupt OFF. USB Transceiver ON. RESET OFF.*/                                           		\
 								USB_ISTR	  = 0x0000;							/*Clear interrupt flags.*/                                                                      		\
 								USB_CNTR	  = 0xF400;							/*Correct Transfer Interrupt ON. PMAOVRM ON. ERROR ON. WAKEUP ON. Reset interrupt ON.*/         		\

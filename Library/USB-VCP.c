@@ -3,6 +3,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Global variables definitions.
 
+volatile uint32_t 	wait = 0;						//Variable used to wait Tsetup = 2.5 us.
 volatile uint8_t 	USB_RECEIVED_EP0 = 0;			//Variable set to 1 when a packet has been received on endpoint 0.
 volatile uint8_t  	USB_TRANSMITTED_EP0 = 0;		//Variable set to 1 when a packet has been transmitted on endpoint 0.
 volatile uint8_t  	USB_RECEIVED_EP1 = 0;			//Variable set to 1 when a packet has been received on endpoint 1.
