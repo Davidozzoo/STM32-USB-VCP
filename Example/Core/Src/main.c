@@ -24,7 +24,7 @@ int main(void)
 		
 		USB_MANAGEMENT();							//Function that manage the USB peripheral and USB control transfers on endpoint 0.
 		
-		if(VCP_Received)	{						//If a packes has been received..
+		if(VCP_Received)	{						//If a packet has been received..
 			
 			Read_VCP(BUFF_RX_VCP,&VCP_RX_LEN);		//Read the packet and store it in the reception buffer "BUFF_RX_VCP". The lenght of the packet will be written inside the variable VCP_RX_LEN.
 			
@@ -33,7 +33,7 @@ int main(void)
 			
 			Write_VCP(BUFF_TX_VCP,VCP_RX_LEN);		//Send the packet through the USB VCP.
 			
-			Wait_VCP_TX();	}						//Wait until the packt has been completely sent.
+			Wait_VCP_TX();	}						//Wait until the packet has been completely sent.
 			
 	}												//END While(1).
 
