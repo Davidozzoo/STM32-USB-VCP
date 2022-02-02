@@ -15,6 +15,7 @@
 #define USB_ENP5R 		(*(volatile uint32_t*)(0x40005C14))
 #define USB_ENP6R 		(*(volatile uint32_t*)(0x40005C18))
 #define USB_ENP7R 		(*(volatile uint32_t*)(0x40005C1C))
+
 #define USB_BASE_MEMORY (*(volatile uint32_t*)(0x40006000))
 #define RCC_APB1ENR_USB	(*(volatile uint32_t*)(0x4002101C))
 #define RCC_APB2ENR_USB	(*(volatile uint32_t*)(0x40021018))

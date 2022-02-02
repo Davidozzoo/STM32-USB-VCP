@@ -426,12 +426,13 @@ void USB_LP_CAN1_RX0_IRQHandler(void)	{
 			USB_ENP2R = 0x8602; 					//EP2 Interrupt. Clear flag CTR_TX. EP2 ADDR=2.
 			DIS_TX_EP2();							//EP2 TX NAK.
 			}
-		switch(USB_ISTR & 0x0F){
-			case 3: USB_ENP3R=0; break;
-			case 4: USB_ENP4R=0; break;
-			case 5: USB_ENP5R=0; break;
-			case 6: USB_ENP6R=0; break;
-			case 7: USB_ENP7R=0; break;
+		
+		switch(USB_ISTR & 0x0F){					//If received interrupt from other endpoints...
+			case 3: USB_ENP3R=0; break;				//Reset the endpoint.
+			case 4: USB_ENP4R=0; break;				//Reset the endpoint.
+			case 5: USB_ENP5R=0; break;				//Reset the endpoint.
+			case 6: USB_ENP6R=0; break;				//Reset the endpoint.
+			case 7: USB_ENP7R=0; break;				//Reset the endpoint.
 		}
 		
 	
